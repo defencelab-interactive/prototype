@@ -70,41 +70,52 @@ nav a.plain::after{content:""}
 @media(max-width:1020px){nav{display:none}}
 
 /* hero */
-.hero{position:relative; overflow:hidden; padding:150px 0 90px; min-height:92vh;
-  display:flex; align-items:center;
-  background:linear-gradient(180deg,var(--hero-a),var(--hero-b))}
+.hero{position:relative; overflow:hidden; padding:132px 0 40px;
+  background:linear-gradient(175deg,#9FBFE9 0%,#AFCAEC 42%,#C9DCF3 78%,#E4EDF8 100%)}
 .hero .wrap{text-align:center}
-.hero h1{max-width:19ch; margin:0 auto}
-.hero .lede{max-width:58ch; margin:22px auto 0; font-size:clamp(1rem,1.25vw,1.15rem); color:#33424F}
-.hero-acts{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:28px}
-.mark{position:absolute; left:50%; top:58%; transform:translateX(-50%);
-  width:min(460px,58vw); aspect-ratio:1; border-radius:50%; opacity:.55; pointer-events:none;
+.hero h1{max-width:17ch; margin:0 auto}
+.hero .lede{max-width:56ch; margin:20px auto 0; font-size:clamp(1rem,1.2vw,1.12rem); color:#2E3C49}
+.hero-acts{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:26px; position:relative; z-index:6}
+.badge{display:inline-flex; align-items:center; gap:10px; margin-bottom:18px;
+  font-size:.95rem; font-weight:500; color:var(--ink)}
+.badge b{display:grid; place-items:center; width:34px; height:34px; background:var(--white);
+  border-radius:10px; box-shadow:var(--sh); font-size:.9rem}
+
+/* the 3D asset sits behind the stack; concentric rings stand in for the real render */
+.stagearea{position:relative; margin-top:-46px; min-height:clamp(320px,38vw,470px)}
+.mark{position:absolute; left:50%; top:0; transform:translateX(-50%);
+  width:min(560px,72vw); aspect-ratio:1.1/1; pointer-events:none; z-index:1;
   background:
-    repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,.85) 0 3px, rgba(255,255,255,0) 3px 13px),
-    radial-gradient(circle at 42% 38%, rgba(255,255,255,.6), transparent 62%);
-  filter:blur(.4px)}
-.chips{position:relative; z-index:3; display:flex; flex-wrap:wrap; gap:10px;
-  justify-content:center; margin:clamp(120px,17vh,200px) auto 0; max-width:1000px}
-.chip{display:inline-flex; align-items:center; gap:8px; background:#fff; border-radius:999px;
-  padding:8px 15px; font-size:.83rem; color:#3C4954; box-shadow:var(--sh)}
-.chip b{color:var(--green); font-size:.9rem; line-height:1}
-@media(max-width:760px){.mark{display:none} .chips{margin-top:34px}}
+    repeating-radial-gradient(closest-side at 46% 52%,
+      rgba(255,255,255,.92) 0 4px, rgba(255,255,255,0) 4px 20px),
+    radial-gradient(closest-side at 46% 52%, rgba(255,255,255,.5), transparent 78%);
+  mask-image:radial-gradient(closest-side at 46% 52%, #000 62%, transparent 92%);
+  filter:drop-shadow(0 10px 26px rgba(40,80,140,.16))}
 
+.chip{position:absolute; z-index:5; display:inline-flex; align-items:center; gap:8px;
+  background:#fff; border-radius:999px; padding:9px 16px; font-size:.85rem; color:#3C4954;
+  box-shadow:0 6px 20px rgba(30,60,100,.13); white-space:nowrap}
+.chip b{color:var(--green); font-size:.95rem; line-height:1}
+.c1{left:9%;  top:40%}
+.c2{left:56%; top:44%}
+.c3{left:23%; top:53%}
+.c4{right:5%; top:60%}
+.c5{left:2%;  top:68%}
+.c6{left:44%; top:74%}
 
-/* edge hexagons */
-.hexdec{position:absolute; z-index:1; pointer-events:none;
-  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
-  background:rgba(255,255,255,.85); box-shadow:0 18px 44px rgba(30,60,100,.14);
-  display:grid; place-items:center; color:#5B8CC4; font-size:1.9rem}
-.hexdec.tint{background:rgba(163,206,91,.42); box-shadow:none}
-.hexdec.blue{background:rgba(91,140,196,.28); box-shadow:none}
-.h1x{left:3.5%;  top:34%; width:170px; aspect-ratio:1/1.15}
-.h2x{left:-2.5%; top:14%; width:120px; aspect-ratio:1/1.15}
-.h3x{left:9%;    top:78%; width:130px; aspect-ratio:1/1.15}
-.h4x{right:5%;   top:26%; width:160px; aspect-ratio:1/1.15}
-.h5x{right:-2%;  top:8%;  width:210px; aspect-ratio:1/1.15}
-.h6x{right:2%;   top:70%; width:180px; aspect-ratio:1/1.15}
-@media(max-width:1240px){.hexdec{display:none}}
+/* the human touch their hero has: a face, small, off to the side */
+.avatar{position:absolute; right:12%; top:6%; z-index:6; width:52px; height:52px;
+  border-radius:14px; background:#fff; box-shadow:var(--sh); display:grid; place-items:center}
+.avatar span{width:34px; height:34px; border-radius:999px;
+  background:linear-gradient(160deg,#8DA7C4,#5B7794)}
+
+@media(max-width:860px){
+  .hero{padding:110px 0 30px}
+  .stagearea{margin-top:-10px; min-height:0; display:flex; flex-wrap:wrap; gap:9px; justify-content:center}
+  .mark{position:relative; left:auto; top:auto; transform:none; width:74vw; margin:6px auto 18px; order:-1}
+  .chip{position:static; inset:auto}
+  .avatar{position:static; margin:0 auto 14px}
+}
 
 /* trusted */
 .trusted{padding:64px 0 70px; text-align:center; background:#fff}
@@ -335,28 +346,24 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="mark" aria-hidden="true"></div>
-  <span class="hexdec tint h2x" aria-hidden="true"></span>
-  <span class="hexdec h1x" aria-hidden="true">◉</span>
-  <span class="hexdec tint h3x" aria-hidden="true">⛨</span>
-  <span class="hexdec h4x" aria-hidden="true">▦</span>
-  <span class="hexdec blue h5x" aria-hidden="true"></span>
-  <span class="hexdec h6x" aria-hidden="true">🔒</span>
   <div class="wrap">
-    <p class="eyebrow">Cybersecurity for growing product companies</p>
+    <p class="badge"><b>◈</b> Welcome to Defence Lab</p>
     <h1>from security gaps to continuous protection<span class="dot">.</span></h1>
     <p class="lede">Assessment, hardening, detection and response, and ongoing improvement — delivered as one accountable service.</p>
     <div class="hero-acts">
       <a class="btn solid" href="#">book a consultation <i>›</i></a>
       <a class="btn" href="#core">view services <i>›</i></a>
     </div>
-    <div class="chips">
-      <span class="chip"><b>✓</b> executive-ready reporting</span>
-      <span class="chip"><b>✓</b> senior engineers only</span>
-      <span class="chip"><b>✓</b> 24/7 monitored coverage</span>
-      <span class="chip"><b>✓</b> works with your existing stack</span>
-      <span class="chip"><b>✓</b> ISO / NIST-aligned delivery</span>
-      <span class="chip"><b>✓</b> SLA-backed response times</span>
+
+    <div class="stagearea">
+      <div class="mark" aria-hidden="true"></div>
+      <div class="avatar" aria-hidden="true"><span></span></div>
+      <span class="chip c1"><b>✓</b> executive-ready reporting</span>
+      <span class="chip c2"><b>✓</b> senior engineers only</span>
+      <span class="chip c3"><b>✓</b> 24/7 monitored coverage</span>
+      <span class="chip c4"><b>✓</b> works with your existing stack</span>
+      <span class="chip c5"><b>✓</b> ISO / NIST-aligned delivery</span>
+      <span class="chip c6"><b>✓</b> SLA-backed response times</span>
     </div>
   </div>
 </section>
