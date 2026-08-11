@@ -122,16 +122,20 @@ nav a.plain::after{content:""}
 
 /* three moments */
 .moments{background:var(--grey); padding:58px 0 66px}
-.moments h2 em{font-style:normal; color:var(--red)}
+.moments h2 em{font-style:normal; color:var(--blue)}
 .m-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:38px}
 @media(max-width:900px){.m-grid{grid-template-columns:1fr; gap:16px}}
 .mcard{background:var(--card); border-radius:12px; box-shadow:var(--sh); padding:26px 24px 22px;
   display:flex; flex-direction:column}
 .mcard .n{font-size:.77rem; color:var(--muted); margin:0}
 .mcard .lab{font-size:.82rem; color:var(--muted); margin:2px 0 18px}
-.mcard .h{margin:0 0 13px; color:var(--red); font-size:1.1rem; font-weight:700;
+.mcard .h{margin:0 0 13px; color:var(--ink); font-size:1.1rem; font-weight:700;
   letter-spacing:-.025em; line-height:1.3}
-.mcard p.d{margin:0 0 20px; font-size:.92rem; max-width:44ch}
+.mcard p.d{margin:0 0 18px; font-size:.92rem; max-width:44ch}
+.mcard .out{margin:0 0 18px; padding:13px 15px; background:#F4F9EE; border-radius:9px;
+  font-size:.88rem; color:#3A4A3A}
+.mcard .out b{display:block; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+  color:#3E6B22; margin-bottom:5px; font-weight:700}
 .mfoot{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:auto; padding-top:6px}
 .mfoot a{color:var(--ink); font-weight:600; font-size:.89rem; text-decoration:none}
 .mfoot a:hover{text-decoration:underline}
@@ -382,8 +386,8 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 <!-- THREE MOMENTS -->
 <section class="moments" id="moments">
   <div class="wrap">
-    <p class="eyebrow">Problem-first entry</p>
-    <h2>three moments when security becomes a <em>business risk.</em></h2>
+    <p class="eyebrow">Where teams usually find us</p>
+    <h2>three moments when security becomes a <em>business decision.</em></h2>
     <p class="sub">Different triggers — one goal: reduce risk without slowing the business</p>
 
     <div class="m-grid">
@@ -392,6 +396,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
         <p class="lab">Scaling product</p>
         <p class="h">You're shipping faster than anyone can check</p>
         <p class="d">New code, new cloud services and new pipelines every week. Nothing has broken, but nobody can say with confidence what is exposed, and slowing your engineers down isn&#39;t an option.</p>
+        <p class="out"><b>What changes</b>Checks that keep pace with your releases instead of queueing in front of them.</p>
         <div class="mfoot"><a href="#">secure sdlc &amp; product security</a><span class="arw">→</span></div>
       </article>
 
@@ -400,14 +405,16 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
         <p class="lab">Known gaps</p>
         <p class="h">Someone left in March, and you're not certain their access is gone</p>
         <p class="d">There&#39;s a report from last year with findings nobody closed, tools running that nobody has time to read, and a network that grew as the company grew without anyone ever designing it.</p>
+        <p class="out"><b>What changes</b>Offboarding becomes a single action, and the open findings get an owner and a date.</p>
         <div class="mfoot"><a href="#">security posture assessment</a><span class="arw">→</span></div>
       </article>
 
       <article class="mcard urgent">
         <p class="n">/ 03</p>
         <p class="lab">Incident pressure</p>
-        <p class="h">Something has happened and you can't yet tell how bad it is</p>
-        <p class="d">Files encrypted, an account signing in that shouldn&#39;t be, or a laptop gone with access to production. What you need first is an accurate picture of what is happening, and someone who has put one together before.</p>
+        <p class="h">Something has happened and you need control of it now</p>
+        <p class="d">Files encrypted, an account signing in that shouldn&#39;t be, or a laptop gone with access to production. The first job is an accurate picture of what is happening, from someone who has put one together before.</p>
+        <p class="out"><b>What changes</b>You get a clear account of what happened and what to do next, with the evidence preserved.</p>
         <div class="mfoot"><a href="#">talk to someone now</a><span class="arw">→</span></div>
       </article>
     </div>
