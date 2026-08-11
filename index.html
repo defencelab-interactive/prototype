@@ -66,8 +66,6 @@ header .wrap{max-width:1600px}
 nav{display:flex; gap:20px; font-size:.9rem; font-weight:500}
 nav a{text-decoration:none; color:var(--ink); opacity:.85}
 nav a:hover{opacity:1}
-nav a::after{content:" ⌄"; font-size:.75rem; opacity:.5}
-nav a.plain::after{content:""}
 @media(max-width:1020px){nav{display:none}}
 
 
@@ -381,7 +379,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
           <div class="mega" id="mega-svc">
             <div class="megahead">
               <b>Everything we do, grouped by what it protects</b>
-              <span>Services are delivered by us; platforms run on your own infrastructure.</span>
+              <span>Services are delivered by us. Platforms you run yourself — <span class="ph">[three of the four state self-hosting; confirm the rest]</span></span>
             </div>
             <div class="megagrid">
 
@@ -455,7 +453,6 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
           </div>
         </span>
 
-        <a href="#cases">case studies.</a>
         <a href="#">blog.</a>
         <a class="plain" href="#">about us.</a>
       </nav>
