@@ -32,6 +32,7 @@ a{color:inherit}
 :focus-visible{outline:2px solid var(--blue); outline-offset:3px; border-radius:6px}
 
 h1,h2,h3{margin:0; color:var(--ink); font-weight:700; letter-spacing:-.035em; line-height:1.12}
+section h2{text-align:center; max-width:32ch; margin-left:auto; margin-right:auto}
 h1{font-size:clamp(2.1rem,5vw,4.5rem)}
 h2{font-size:clamp(1.6rem,3.4vw,2.9rem)}
 h3{font-size:1.02rem; font-weight:700; letter-spacing:-.02em; line-height:1.3}
@@ -172,7 +173,7 @@ nav a.plain::after{content:""}
 .prods{background:var(--grey-2); padding:60px 0 68px}
 .prods .khead{max-width:var(--wrap); margin:0 auto; padding:0 28px}
 .prods .eyebrow{text-align:left; letter-spacing:.14em; text-transform:uppercase; font-size:.72rem; color:#66727E}
-.prods h2{text-align:left}
+.prods h2{text-align:left; max-width:none; margin-left:0; margin-right:0}
 .p-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:32px}
 @media(max-width:1000px){.p-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.p-grid{grid-template-columns:1fr}}
@@ -408,7 +409,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 <section class="core" id="core">
   <div class="wrap">
     <p class="eyebrow">Core services</p>
-    <h2 style="text-align:center">what we actually do<span class="dot">.</span></h2>
+    <h2>what we actually do<span class="dot">.</span></h2>
     <p class="sub">Six ways to work with us — from a one-off look at where you stand, to us running security for you.</p>
 
     <div class="stage"><p>Start here</p><p>Then</p><p>Ongoing</p></div>
@@ -532,7 +533,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 <section class="cases" id="cases">
   <div class="wrap">
     <p class="eyebrow">Case studies</p>
-    <h2 style="text-align:center">six things we built, and what they changed<span class="dot">.</span></h2>
+    <h2>six things we built, and what they changed<span class="dot">.</span></h2>
     <p class="sub">Real engagements, clients anonymised. Each starts with the situation, not the technology — open one to see what we did about it.</p>
 
     <div class="c-grid">
@@ -642,7 +643,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 <section class="why">
   <div class="wrap">
     <p class="eyebrow">Why teams switch</p>
-    <h2 style="text-align:center">why teams switch to defence lab<span class="dot">.</span></h2>
+    <h2>why teams switch to defence lab<span class="dot">.</span></h2>
     <div class="w-grid">
       <div class="w"><em>◎</em><b>readable by your board and your engineers</b><span>The same findings in two views — the summary a decision gets made from, and the technical detail underneath it. Nobody has to translate.</span></div>
       <div class="w"><em>▤</em><b>engineers, not account managers</b><span>You talk to the person doing the work, not someone relaying it. There is no handover between whoever sold the engagement and whoever runs it.</span></div>
@@ -658,7 +659,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 <section class="proc">
   <div class="wrap">
     <p class="eyebrow">Process</p>
-    <h2 style="text-align:center">a security model that works in real environments<span class="dot">.</span></h2>
+    <h2>a security model that works in real environments<span class="dot">.</span></h2>
     <div class="shield" aria-hidden="true">◈</div>
     <p class="shield-lab">the same team across all five stages</p>
     <div class="steps">
