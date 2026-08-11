@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Defence Lab — prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Palette read off the live site. Designer: exact brand hexes go here. */
+  --bg:        #FBFCFB;
+  --grad-green:#B4D78A;
+  --grad-blue: #8FB6DE;
+  --green:     #A3CE5B;
+  --green-dk:  #7FB030;
+  --blue:      #5B8CC4;
+  --violet:    #8F8BD6;
+  --ink:       #10161C;
+  --body:      #4A555F;
+  --muted:     #8A959D;
+  --white:     #FFFFFF;
+  --line:      rgba(16,22,28,.09);
+  --shadow:    0 6px 24px rgba(30,50,70,.07);
+  --shadow-lg: 0 14px 44px rgba(30,50,70,.10);
+
+  --sans:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --wrap:1180px;
+  --r:16px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--body);
+  font-family:var(--sans); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--wrap); margin:0 auto; padding:0 24px; position:relative; z-index:1}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--green-dk); outline-offset:3px; border-radius:4px}
+
+/* ---------- type ---------- */
+h1,h2,h3{margin:0; color:var(--ink); font-weight:700; letter-spacing:-.035em; line-height:1.08}
+h1{font-size:clamp(2.2rem,5.6vw,4.1rem)}
+h2{font-size:clamp(1.7rem,3.6vw,2.6rem)}
+h3{font-size:1.05rem; font-weight:600; letter-spacing:-.02em; line-height:1.3}
+p{margin:0 0 1rem}
+.eyebrow{
+  font-family:var(--mono); font-size:.72rem; text-transform:uppercase;
+  letter-spacing:.15em; color:var(--muted); margin:0 0 1rem
+}
+.lede{font-size:clamp(1.02rem,2vw,1.22rem); color:var(--body)}
+.ph{
+  font-family:var(--mono); font-size:.8em; color:var(--blue);
+  border-bottom:1px dashed rgba(91,140,196,.55); white-space:nowrap
+}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:9px; font-family:var(--sans);
+  font-size:.95rem; font-weight:600; padding:13px 24px; border-radius:999px;
+  text-decoration:none; cursor:pointer; border:1px solid transparent;
+  background:var(--green); color:var(--ink); box-shadow:var(--shadow);
+  transition:transform .16s, box-shadow .16s, background .16s
+}
+.btn:hover{transform:translateY(-1px); box-shadow:var(--shadow-lg); background:#AFD66E}
+.btn::after{
+  content:"›"; display:grid; place-items:center; width:20px; height:20px;
+  border-radius:999px; background:var(--ink); color:var(--green);
+  font-size:.85rem; line-height:1; padding-bottom:2px
+}
+.btn.plain{background:var(--white); color:var(--ink)}
+.btn.plain:hover{background:var(--white)}
+.btn.plain::after{background:var(--green); color:var(--white)}
+.btn.bare::after{display:none}
+
+/* ---------- header ---------- */
+header{padding:18px 0 0; position:relative; z-index:5}
+.bar{
+  display:flex; align-items:center; gap:26px;
+  background:rgba(255,255,255,.82); backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.7); box-shadow:var(--shadow);
+  border-radius:999px; padding:10px 12px 10px 22px; max-width:1100px; margin:0 auto
+}
+.logo{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--ink); text-decoration:none; letter-spacing:-.03em; margin-right:auto}
+.logo svg{display:block}
+nav{display:flex; gap:20px; font-size:.93rem; font-weight:500}
+nav a{text-decoration:none; color:var(--ink); opacity:.82; transition:opacity .15s}
+nav a:hover{opacity:1}
+@media(max-width:1000px){nav{display:none} .bar{padding:10px 12px 10px 18px}}
+
+/* ---------- hero ---------- */
+.hero-shell{position:relative; overflow:hidden}
+.hero-shell::before{
+  content:""; position:absolute; inset:-10% -5% 0 -5%; z-index:0;
+  background:
+    radial-gradient(60% 70% at 8% 22%, rgba(180,215,138,.75), transparent 62%),
+    radial-gradient(62% 72% at 92% 34%, rgba(143,182,222,.7), transparent 62%),
+    radial-gradient(50% 60% at 50% 0%, rgba(255,255,255,.9), transparent 60%);
+}
+.hero-shell::after{
+  content:""; position:absolute; inset:0; z-index:0; opacity:.5;
+  background-image:
+    linear-gradient(rgba(255,255,255,.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.55) 1px, transparent 1px);
+  background-size:68px 68px;
+  mask-image:linear-gradient(to bottom, #000 40%, transparent);
+}
+.hero{padding:70px 0 54px; text-align:center; position:relative; z-index:1}
+.badge{
+  display:inline-flex; align-items:center; gap:10px; margin-bottom:22px;
+  font-size:.95rem; font-weight:500; color:var(--ink)
+}
+.badge b{
+  display:grid; place-items:center; width:34px; height:34px; background:var(--white);
+  border-radius:10px; box-shadow:var(--shadow); font-size:.9rem
+}
+.hero h1{max-width:19ch; margin:0 auto}
+.hero h1 em{
+  font-style:normal; color:var(--green-dk);
+  background:linear-gradient(100deg,#7FB030 0%,#4E93C9 28%,#7C74D0 50%,#4E93C9 72%,#7FB030 100%);
+  background-size:280% 100%;
+  -webkit-background-clip:text; background-clip:text;
+  animation:sweep 9s linear infinite;
+}
+@supports((-webkit-background-clip:text) or (background-clip:text)){
+  .hero h1 em{-webkit-text-fill-color:transparent; color:transparent}
+}
+@keyframes sweep{
+  from{background-position:0% 50%}
+  to{background-position:-280% 50%}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero h1 em{animation:none; background-position:22% 50%}
+}
+.hero .lede{max-width:56ch; margin:22px auto 0}
+.hero-acts{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:32px}
+.proof{
+  display:flex; flex-wrap:wrap; gap:9px; justify-content:center; margin:38px 0 0; padding:0; list-style:none;
+  font-family:var(--mono); font-size:.74rem; color:var(--body)
+}
+.proof li{background:rgba(255,255,255,.8); border-radius:999px; padding:8px 15px; box-shadow:0 2px 10px rgba(30,50,70,.05)}
+
+/* ---------- entry cards ---------- */
+.entries{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; padding:14px 0 92px; position:relative; z-index:1}
+@media(max-width:900px){.entries{grid-template-columns:1fr; padding-bottom:64px}}
+.card{
+  background:var(--white); border-radius:var(--r); box-shadow:var(--shadow);
+  padding:28px 26px 24px; display:flex; flex-direction:column;
+  border-top:3px solid var(--tone); transition:box-shadow .18s, transform .18s
+}
+.card:hover{box-shadow:var(--shadow-lg); transform:translateY(-2px)}
+.card--crisis{--tone:var(--green)}
+.card--gap{--tone:var(--blue)}
+.card--pressure{--tone:var(--violet)}
+.card .tag{
+  font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.14em;
+  color:var(--tone); margin:0 0 13px; font-weight:500
+}
+.card h3{margin-bottom:11px}
+.card p{font-size:.94rem}
+.card .meta{
+  font-family:var(--mono); font-size:.76rem; color:var(--muted);
+  border-top:1px solid var(--line); padding-top:14px; margin:auto 0 0
+}
+.card .acts{display:flex; flex-direction:column; gap:10px; margin-top:16px; align-items:flex-start}
+.card .acts .btn{align-self:stretch; justify-content:center}
+.card .acts .lnk{font-size:.9rem; font-weight:600; text-decoration:none; color:var(--ink)}
+.card .acts .lnk:hover{text-decoration:underline}
+
+/* ---------- sections ---------- */
+section{padding:88px 0; position:relative}
+section.tint{background:linear-gradient(180deg,#F4F7F3,#F7FAFB)}
+.shead{text-align:center; margin:0 auto 54px}
+.shead h2{max-width:26ch; margin:0 auto}
+.shead-body{
+  display:grid; grid-template-columns:1fr 1fr; gap:38px;
+  max-width:900px; margin:34px auto 0; text-align:left
+}
+.shead-body p{margin:0; font-size:1rem}
+@media(max-width:860px){
+  section{padding:62px 0}
+  .shead{margin-bottom:38px}
+  .shead h2{max-width:none}
+  .shead-body{grid-template-columns:1fr; gap:16px; margin-top:22px}
+}
+
+/* ---------- honeycomb ---------- */
+.cycle{display:grid; grid-template-columns:1fr 1fr; gap:52px; align-items:center}
+@media(max-width:960px){.cycle{grid-template-columns:1fr; gap:30px}}
+.comb{width:100%; max-width:430px; margin:0 auto}
+.comb svg{width:100%; height:auto; display:block; overflow:visible}
+.cell{cursor:pointer}
+.cell .shape{
+  fill:var(--white); stroke:rgba(16,22,28,.07); stroke-width:1;
+  filter:drop-shadow(0 4px 12px rgba(30,50,70,.10));
+  transition:fill .18s, stroke .18s
+}
+.cell .lbl{
+  fill:var(--ink); font-family:var(--sans); font-size:12.5px; font-weight:600;
+  text-anchor:middle; dominant-baseline:middle; pointer-events:none
+}
+.cell:hover .shape{stroke:var(--green)}
+.cell.core .shape{fill:#F2F8E7; stroke:rgba(163,206,91,.5)}
+.cell.core .lbl{fill:var(--green-dk)}
+.cell.sel .shape{fill:#F2F8E7; stroke:var(--green-dk); stroke-width:2}
+.cell:focus{outline:none}
+.cell:focus-visible .shape{stroke:var(--green-dk); stroke-width:2}
+.loop{fill:none; stroke:rgba(16,22,28,.12); stroke-width:1; stroke-dasharray:3 7}
+.combhint{text-align:center; font-family:var(--mono); font-size:.72rem; color:var(--muted); margin-top:18px}
+
+.detail{background:var(--white); border-radius:var(--r); box-shadow:var(--shadow); padding:28px 26px}
+.detail .eyebrow{margin-bottom:6px}
+.detail h3{font-size:1.3rem; font-weight:700; letter-spacing:-.03em; margin-bottom:5px}
+.detail .sub{font-family:var(--mono); font-size:.78rem; color:var(--green-dk); margin:0 0 18px}
+.svc{list-style:none; margin:0; padding:0; columns:2; column-gap:24px}
+@media(max-width:560px){.svc{columns:1}}
+.svc li{font-size:.88rem; padding:5px 0; break-inside:avoid}
+.entry-note{
+  font-family:var(--mono); font-size:.73rem; color:var(--muted);
+  border-top:1px solid var(--line); margin:18px 0 0; padding-top:14px
+}
+.coverline{
+  max-width:820px; margin:44px auto 0; padding:20px 24px; border-radius:var(--r);
+  background:var(--white); box-shadow:var(--shadow); border-left:3px solid var(--blue);
+  font-size:.95rem; text-align:left
+}
+
+/* ---------- self-check ---------- */
+.check{
+  background:var(--white); border-radius:var(--r); box-shadow:var(--shadow-lg);
+  padding:34px 32px; max-width:1000px; margin:0 auto
+}
+@media(max-width:600px){.check{padding:24px 20px}}
+.qcount{font-family:var(--mono); font-size:.74rem; color:var(--muted); letter-spacing:.1em; margin:0}
+.bar-p{height:3px; background:#EDF0F2; border-radius:999px; margin:14px 0 28px; overflow:hidden}
+.bar-p i{display:block; height:3px; background:var(--green); width:0; transition:width .3s}
+.q{font-size:1.22rem; font-weight:600; color:var(--ink); letter-spacing:-.025em; line-height:1.3; margin:0 0 22px; max-width:52ch}
+.opts{display:flex; flex-direction:column; gap:9px; margin:0}
+.opt{
+  text-align:left; font:inherit; font-size:.96rem; color:var(--ink); cursor:pointer;
+  background:var(--white); border:1px solid var(--line); border-radius:12px; padding:14px 18px;
+  transition:border-color .15s, background .15s, transform .15s
+}
+.opt:hover{border-color:var(--green); background:#FAFDF4; transform:translateX(2px)}
+.back{
+  background:none; border:0; color:var(--muted); font:inherit; font-size:.86rem;
+  cursor:pointer; padding:8px 0 0; margin-top:12px
+}
+.back:hover{color:var(--ink)}
+
+.res{display:none}
+.res.on{display:block}
+.res-lead{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-bottom:24px}
+.res-grid{display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:start}
+@media(max-width:960px){.res-grid{grid-template-columns:1fr; gap:30px}}
+.cell.st-owned .shape{fill:#F2F8E7; stroke:var(--green-dk); stroke-width:1.6}
+.cell.st-owned .lbl{fill:var(--green-dk)}
+.cell.st-partial .shape{fill:#EEF4FB; stroke:var(--blue); stroke-width:1.6}
+.cell.st-partial .lbl{fill:var(--blue)}
+.cell.st-unowned .shape{fill:#FAFBFB; stroke:rgba(138,149,157,.6); stroke-dasharray:4 4; filter:none}
+.cell.st-unowned .lbl{fill:var(--muted)}
+.cell.static{cursor:default; pointer-events:none}
+.key{display:flex; gap:18px; flex-wrap:wrap; justify-content:center; font-family:var(--mono); font-size:.72rem; color:var(--muted); margin-top:20px}
+.key i{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px; vertical-align:middle}
+.rsum{font-size:1.4rem; font-weight:700; color:var(--ink); letter-spacing:-.03em; margin:0 0 22px}
+.finding{border-left:2px solid var(--line); padding:0 0 0 16px; margin:0 0 20px}
+.finding.p{border-left-color:var(--blue)}
+.finding.u{border-left-color:var(--muted)}
+.finding b{display:block; color:var(--ink); font-size:.95rem; margin-bottom:5px}
+.finding span{font-size:.91rem}
+.finding em{display:block; font-style:normal; font-family:var(--mono); font-size:.77rem; color:var(--green-dk); margin-top:7px}
+.res-cta{border-top:1px solid var(--line); margin-top:26px; padding-top:24px}
+.res-cta p{font-size:.93rem}
+.bound{font-size:.85rem; color:var(--muted); margin-top:20px}
+
+footer{padding:38px 0 64px; font-size:.86rem; color:var(--muted); border-top:1px solid var(--line)}
+.note{
+  font-family:var(--mono); font-size:.73rem; color:var(--muted); background:var(--white);
+  border:1px dashed rgba(16,22,28,.16); border-radius:12px; padding:16px 18px;
+  margin:34px auto 0; max-width:1000px
+}
+@media(prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+
+<div class="hero-shell">
+<header>
+  <div class="wrap">
+    <div class="bar">
+      <a class="logo" href="#">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+          <path d="M13 2c6 0 11 4.6 11 10.4 0 4.4-3.3 7.6-7.6 7.6-3.3 0-5.9-2.3-5.9-5.4 0-2.5 1.8-4.3 4.2-4.3 1.9 0 3.3 1.3 3.3 3 0 1.4-1 2.4-2.3 2.4" stroke="#5B8CC4" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M13 24C7 24 2 19.4 2 13.6 2 9.2 5.3 6 9.6 6" stroke="#A3CE5B" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Defence Lab
+      </a>
+      <nav>
+        <a href="#">solutions.</a>
+        <a href="#cycle">services.</a>
+        <a href="#">compliance.</a>
+        <a href="#">vendors.</a>
+        <a href="#">about us.</a>
+      </nav>
+      <a class="btn bare" href="#">book a consultation</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <p class="badge"><b>◈</b> Welcome to Defence Lab</p>
+  <h1>one team across every phase of <em>your security.</em></h1>
+  <p class="lede">Not a report, not a licence, not a number to call when it's already gone wrong. We run the whole cycle — and you can join it at whatever point you're at right now.</p>
+  <div class="hero-acts">
+    <a class="btn" href="#">book a consultation</a>
+    <a class="btn plain" href="#check">coverage check</a>
+  </div>
+  <ul class="proof">
+    <li>NIST CSF 2.0 aligned</li>
+    <li><span class="ph">[years]</span> years</li>
+    <li><span class="ph">[n]</span> clients</li>
+    <li><span class="ph">[certifications]</span></li>
+    <li>response in <span class="ph">[X hours]</span></li>
+  </ul>
+</div>
+
+<div class="wrap entries">
+  <article class="card card--crisis">
+    <p class="tag">Crisis</p>
+    <h3>Something has gone wrong and you can't yet tell how serious it is.</h3>
+    <p>Maybe files are encrypted and there's a demand for payment, or an account nobody recognises has been signing in for weeks, or a laptop with access to production has disappeared. The first thing you need is an accurate picture, and someone who has put one together before.</p>
+    <p class="meta">Response within <span class="ph">[X hours]</span> · <span class="ph">[24/7?]</span></p>
+    <div class="acts">
+      <a class="btn" href="#">call the incident line</a>
+      <a class="lnk" href="#">What to do in the first 30 minutes →</a>
+    </div>
+  </article>
+
+  <article class="card card--gap">
+    <p class="tag">Gap</p>
+    <h3>Someone left in March, and you're not certain their access is gone.</h3>
+    <p>The network grew as the company grew and nobody ever designed it. Every new office starts again from scratch. There are tools running that nobody has time to look at. None of it has broken yet — which isn't the same as secure.</p>
+    <p class="meta"><span class="ph">[X weeks]</span> to coverage · from <span class="ph">[entry price]</span></p>
+    <div class="acts">
+      <a class="btn" href="#">book a consultation</a>
+      <a class="lnk" href="#">How engagements work →</a>
+    </div>
+  </article>
+
+  <article class="card card--pressure">
+    <p class="tag">Pressure</p>
+    <h3>The date isn't yours.</h3>
+    <p>A customer's security questionnaire is holding up a contract, investors want evidence of controls before the round closes, or your guest Wi-Fi wouldn't survive a data-protection review. You need a realistic view of whether you'll make the date, and what has to happen first.</p>
+    <p class="meta">ISO 27001 · SOC 2 · GDPR — readiness and evidence; the certificate or report comes from an independent body</p>
+    <div class="acts">
+      <a class="btn" href="#">book a readiness assessment</a>
+      <a class="lnk" href="#">Compliance digest →</a>
+    </div>
+  </article>
+</div>
+</div><!-- /hero-shell -->
+
+<main>
+
+<section id="cycle">
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow">full-cycle security management</p>
+      <h2>Security work usually arrives in pieces.</h2>
+      <div class="shead-body">
+        <p>One company tests your systems and sends a report. Another sells you a tool and a licence. A third appears when something has already gone wrong. Each piece is fine on its own, but the space between them belongs to nobody — and that's where problems sit unnoticed.</p>
+        <p>Full-cycle means one team stays with you through all of it. The cycle isn't something we invented — it's the structure international security standards use. What we add is that all six parts of it are ours to run, not split between four suppliers.</p>
+      </div>
+    </div>
+
+    <div class="cycle">
+      <div>
+        <div class="comb" id="comb"></div>
+        <p class="combhint">tap a phase to see what's in it</p>
+      </div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+
+    <p class="coverline">We cover every phase of the cycle. Where the work calls for specialist tooling or a certified auditor, we bring in the vendor or partner and stay accountable for the result. <span class="ph">[confirm]</span></p>
+  </div>
+</section>
+
+<section id="check" class="tint">
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow">coverage check</p>
+      <h2>Which parts of your security have an owner?</h2>
+      <div class="shead-body">
+        <p>Eight questions, about two minutes. We're not testing your systems — we're asking who is responsible for what. At the end you'll see which parts of the cycle have a clear owner in your company and which don't.</p>
+        <p style="color:var(--muted)">This is a self-check based on your answers, not an audit. “I'm not sure” is a real answer and worth knowing.</p>
+      </div>
+    </div>
+
+    <div class="check">
+      <div id="quiz">
+        <p class="qcount"><span id="qnum">1</span> / 8</p>
+        <div class="bar-p"><i id="bar"></i></div>
+        <p class="q" id="qtext"></p>
+        <div class="opts" id="qopts"></div>
+        <button class="back" id="qback" type="button">← previous question</button>
+      </div>
+
+      <div class="res" id="res">
+        <p class="res-lead">Security work divides into six parts — this is the structure international standards use. Here's how your answers fall across them.</p>
+        <div class="res-grid">
+          <div>
+            <div class="comb" id="comb2"></div>
+            <p class="key">
+              <span><i style="background:var(--green-dk)"></i>owned</span>
+              <span><i style="background:var(--blue)"></i>someone does it</span>
+              <span><i style="box-shadow:inset 0 0 0 1px var(--muted)"></i>nobody's job</span>
+            </p>
+          </div>
+          <div>
+            <p class="rsum" id="rsum"></p>
+            <div id="rfind"></div>
+            <div class="res-cta">
+              <p id="rcta"></p>
+              <a class="btn" href="#" id="rbtn">talk it through</a>
+              <p class="bound">This tells you where nobody's watching. It doesn't tell you whether what's being watched is configured correctly — that needs someone looking at the systems themselves.</p>
+            </div>
+            <button class="back" id="again" type="button">← start again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="note">Prototype — everything in [brackets] is a factual gap awaiting confirmation from the team. Palette and type tokens sit in one CSS block at the top of this file. Nav items and links are placeholders.</p>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap">Defence Lab — structural prototype. Not for publication.</div></footer>
+
+<script>
+const PHASES = [
+  { id:"govern", core:true, name:"Govern", sub:"Who owns security, and how you prove it",
+    entry:"Pressure enters here",
+    svc:["Security policy and documentation","Risk assessment and register","Control ownership and accountability","Compliance framework mapping","Third-party risk governance","Board and auditor reporting","Security awareness programme"] },
+  { id:"identify", name:"Identify", sub:"What you have, and where it's weak",
+    entry:"Pressure enters here",
+    svc:["Asset and attack-surface inventory","Vulnerability assessment","Penetration testing","Security posture and gap assessment","Compliance readiness assessment","Third-party risk review"] },
+  { id:"protect", name:"Protect", sub:"Closing the gaps and keeping them closed",
+    entry:"Gap enters here",
+    svc:["Hardening and configuration baselines","Identity and privileged access","Endpoint and email protection","Network segmentation","Patch and vulnerability management","Backup and recovery design","Secure development and code review","Security training"] },
+  { id:"detect", name:"Detect", sub:"Someone watching, continuously",
+    entry:"Gap enters here",
+    svc:["Log collection and SIEM","Continuous monitoring","EDR/XDR management","Threat hunting","Anomaly and AI-assisted detection","Alert triage","Threat intelligence"] },
+  { id:"respond", name:"Respond", sub:"When something happens",
+    entry:"Crisis enters here",
+    svc:["Incident response retainer","Containment and forensics","Malware analysis","Regulatory and customer notification support","Tabletop exercises and IR planning"] },
+  { id:"recover", name:"Recover", sub:"Getting back to work, and not repeating it",
+    entry:"Crisis continues here",
+    svc:["Business continuity and disaster recovery planning","Backup validation and restore testing","System and service restoration","Post-incident review and reporting","Control improvements fed back into Protect"] }
+];
+
+const CX=180, CY=168, R=48, RING=105, NS="http://www.w3.org/2000/svg";
+const RING_ORDER=["identify","protect","detect","respond","recover"];
+
+function hexPoints(cx,cy,r){
+  const p=[];
+  for(let k=0;k<6;k++){
+    const a=Math.PI/3*k;
+    p.push((cx+r*Math.cos(a)).toFixed(1)+","+(cy+r*Math.sin(a)).toFixed(1));
+  }
+  return p.join(" ");
+}
+function centreOf(id){
+  if(id==="govern") return [CX,CY];
+  const k=RING_ORDER.indexOf(id);
+  const a=(-90+72*k)*Math.PI/180;
+  return [CX+RING*Math.cos(a), CY+RING*Math.sin(a)];
+}
+function buildComb(host,{states=null,interactive=false}={}){
+  const svg=document.createElementNS(NS,"svg");
+  svg.setAttribute("viewBox","0 0 360 320");
+  svg.setAttribute("role","group");
+  svg.setAttribute("aria-label","Six phases of the security cycle");
+
+  const loop=document.createElementNS(NS,"circle");
+  loop.setAttribute("cx",CX); loop.setAttribute("cy",CY); loop.setAttribute("r",RING);
+  loop.setAttribute("class","loop");
+  svg.appendChild(loop);
+
+  PHASES.forEach(p=>{
+    const [x,y]=centreOf(p.id);
+    const g=document.createElementNS(NS,"g");
+    g.setAttribute("class","cell"+(p.core?" core":"")+(states?" static st-"+states[p.id]:""));
+    g.dataset.id=p.id;
+
+    const poly=document.createElementNS(NS,"polygon");
+    poly.setAttribute("points",hexPoints(x,y,R));
+    poly.setAttribute("class","shape");
+    g.appendChild(poly);
+
+    const t=document.createElementNS(NS,"text");
+    t.setAttribute("x",x); t.setAttribute("y",y+1);
+    t.setAttribute("class","lbl");
+    t.textContent=p.name;
+    g.appendChild(t);
+
+    if(interactive){
+      g.setAttribute("tabindex","0");
+      g.setAttribute("role","button");
+      g.addEventListener("click",()=>show(p.id));
+      g.addEventListener("keydown",e=>{
+        if(e.key==="Enter"||e.key===" "){e.preventDefault(); show(p.id);}
+      });
+    }
+    svg.appendChild(g);
+  });
+  host.innerHTML="";
+  host.appendChild(svg);
+}
+
+const comb=document.getElementById("comb"), detail=document.getElementById("detail");
+buildComb(comb,{interactive:true});
+
+function show(id){
+  const p=PHASES.find(x=>x.id===id);
+  comb.querySelectorAll(".cell").forEach(c=>c.classList.toggle("sel", c.dataset.id===id));
+  detail.innerHTML=
+    '<p class="eyebrow">phase</p><h3>'+p.name+'</h3><p class="sub">'+p.sub+'</p>'+
+    '<ul class="svc">'+p.svc.map(s=>"<li>"+s+"</li>").join("")+'</ul>'+
+    '<p class="entry-note">'+p.entry+' · vendors operated here: <span class="ph">[confirm]</span></p>';
+}
+show("govern");
+
+const Q=[
+ {ph:"govern", q:"Who looks after security day to day?",
+  a:[["Someone whose job it is",2],["Someone who does it alongside another role",1],["An outside company",2],["Nobody in particular",0]]},
+ {ph:"govern", q:"If a customer or an investor sent you a security questionnaire tomorrow, who would fill it in?",
+  a:[["We've done it before and know who does it",2],["Someone would work it out",1],["We'd have to find help",0],["I'm not sure",0]]},
+ {ph:"identify", q:"Could you produce a list today of every system, service and account the business depends on?",
+  a:[["Yes, it's maintained",2],["Roughly, from memory",1],["No",0],["I'm not sure",0]]},
+ {ph:"identify", q:"Do you know which outside suppliers have access to your systems or data?",
+  a:[["Yes, and it's written down",2],["Broadly, not documented",1],["No",0],["I'm not sure",0]]},
+ {ph:"protect", q:"When someone leaves the company, how are their access rights removed?",
+  a:[["From a checklist, verified afterwards",2],["From memory, by whoever remembers",1],["It varies",0],["I'm not sure",0]]},
+ {ph:"detect", q:"If someone were signing into your systems right now with a stolen password, how would you find out?",
+  a:[["Someone monitors this and would be alerted",2],["We have tools that log it, nobody watches them",1],["We'd find out when something visibly broke",0],["I'm not sure",0]]},
+ {ph:"respond", q:"If you learned this afternoon that customer data had leaked, would you know who to call first — inside the company and outside it?",
+  a:[["Yes, it's written down and people know it",2],["We'd figure it out quickly",1],["No",0],["I'm not sure",0]]},
+ {ph:"recover", q:"When did you last confirm that a backup actually restores?",
+  a:[["In the last six months",2],["Over a year ago",1],["We have backups but have never tested a restore",1],["I'm not sure",0]]}
+];
+
+const FIND={
+ govern:{p:["Security decisions get made, but nobody holds the record of what was decided.","One written owner per area, even if it's the same person for all of them."],
+         u:["Nobody holds the record of what was decided or why. This is what a customer questionnaire or an audit asks for first.","One written owner per area, even if it's the same person for all of them."]},
+ identify:{p:["You know roughly what you have, which is enough until you need to prove it or protect all of it.","Write the list down once — most of it is already in someone's head."],
+           u:["Without a list of what you have, nothing else can be complete — protection and monitoring only cover what's known about.","Start with what's internet-facing; that's the part someone else can already see."]},
+ protect:{p:["Access removal depends on whoever remembers, which works until the month it doesn't.","Turn it into a checklist and check it afterwards."],
+          u:["Former employees' access is the most common way in that nobody is looking for.","A leavers' checklist, verified rather than assumed."]},
+ detect:{p:["The evidence is being collected, but nobody reads it, so it only helps after the fact.","Decide who reads the alerts you already generate."],
+         u:["You'd learn about a break-in when its effects became visible, which is usually days or weeks later.","Decide who reads the alerts you already generate."]},
+ respond:{p:["You'd work it out, but the first hour is when improvisation costs the most.","Write down who is called, in what order, including outside the company."],
+          u:["The first hour decides how much a breach costs, and it's the hour nobody has planned for.","Write down who is called, in what order, including outside the company."]},
+ recover:{p:["Backups exist and are old enough that nobody knows whether they'd work.","Restore one system to a test environment."],
+          u:["Untested backups are common and usually fine, but the first time anyone finds out either way is during an incident.","Restore one system to a test environment."]}
+};
+
+let i=0, ans=[];
+const qtext=document.getElementById("qtext"), qopts=document.getElementById("qopts"),
+      qnum=document.getElementById("qnum"), bar=document.getElementById("bar"),
+      qback=document.getElementById("qback"), quiz=document.getElementById("quiz"),
+      res=document.getElementById("res");
+
+function render(){
+  const q=Q[i];
+  qnum.textContent=i+1;
+  bar.style.width=(i/Q.length*100)+"%";
+  qtext.textContent=q.q;
+  qopts.innerHTML="";
+  q.a.forEach(function(pair){
+    const b=document.createElement("button");
+    b.type="button"; b.className="opt"; b.textContent=pair[0];
+    b.addEventListener("click",function(){ ans[i]=pair[1]; i++; i<Q.length?render():finish(); });
+    qopts.appendChild(b);
+  });
+  qback.style.display=i===0?"none":"block";
+}
+qback.addEventListener("click",function(){ if(i>0){i--; render();} });
+
+function finish(){
+  const state={};
+  PHASES.forEach(function(p){
+    const vals=Q.map(function(q,n){return q.ph===p.id?ans[n]:null;}).filter(function(v){return v!==null;});
+    const min=Math.min.apply(null,vals);
+    state[p.id]= min===2?"owned": min===1?"partial":"unowned";
+  });
+
+  buildComb(document.getElementById("comb2"),{states:state});
+
+  const owned=PHASES.filter(function(p){return state[p.id]==="owned";}).length;
+  const unowned=PHASES.filter(function(p){return state[p.id]==="unowned";}).length;
+  const unsure=ans.filter(function(v){return v===0;}).length;
+
+  document.getElementById("rsum").textContent=owned+" of 6 phases have a clear owner.";
+
+  const gaps=PHASES.filter(function(p){return state[p.id]!=="owned";});
+  document.getElementById("rfind").innerHTML = gaps.length===0
+    ? '<div class="finding"><span>Every phase has an owner. That is further along than most companies your size — worth a conversation only when something changes.</span></div>'
+    : gaps.map(function(p){
+        const st=state[p.id], f=FIND[p.id][st==="partial"?"p":"u"];
+        return '<div class="finding '+(st==="partial"?"p":"u")+'"><b>'+p.name+' — '+
+          (st==="partial"?"someone does it, nobody owns it":"nobody's job")+
+          '</b><span>'+f[0]+'</span><em>First step: '+f[1]+'</em></div>';
+      }).join("");
+
+  const cta=document.getElementById("rcta"), btn=document.getElementById("rbtn");
+  if(owned>=5){
+    cta.textContent="Most of your cycle has an owner. Nothing here is urgent.";
+    btn.textContent="read the compliance digest";
+  } else if(unsure>=4){
+    cta.textContent="A lot of these came back as not sure, which usually means the answers exist but sit with different people.";
+    btn.textContent="walk through it with someone";
+  } else if(unowned>=3){
+    cta.textContent="Several phases have nobody assigned. The order you close them in matters more than closing all of them.";
+    btn.textContent="talk through what to cover first";
+  } else {
+    cta.textContent="One or two phases are uncovered. That is a scoped conversation, not a programme.";
+    btn.textContent="ask about that phase";
+  }
+
+  quiz.style.display="none";
+  res.classList.add("on");
+}
+
+document.getElementById("again").addEventListener("click",function(){
+  i=0; ans=[]; res.classList.remove("on"); quiz.style.display="block"; render();
+});
+
+render();
+</script>
+</body>
+</html>

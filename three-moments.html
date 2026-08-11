@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three moments — updated copy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --band:#F2F3F5; --card:#FFFFFF;
+  --ink:#111820; --body:#48545F; --muted:#95A0AA;
+  --red:#E0242B; --link:#2E6FD8; --green:#7FC241;
+  --shadow:0 3px 14px rgba(28,40,60,.07);
+  --sans:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0; background:#fff; color:var(--body); font-family:var(--sans); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
+.band{background:var(--band); padding:58px 0 66px}
+.wrap{max-width:1140px; margin:0 auto; padding:0 28px}
+.eyebrow{text-align:center; font-size:.8rem; color:#5A6672; margin:0 0 12px}
+h2{margin:0; text-align:center; color:var(--ink); font-weight:700;
+  font-size:clamp(1.6rem,3.3vw,2.35rem); letter-spacing:-.035em; line-height:1.12}
+h2 em{font-style:normal; color:var(--red)}
+.sub{text-align:center; max-width:60ch; margin:16px auto 0; font-size:.95rem; color:#4A5763}
+
+.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:38px}
+@media(max-width:900px){.grid{grid-template-columns:1fr; gap:16px}}
+.card{background:var(--card); border-radius:12px; box-shadow:var(--shadow);
+  padding:26px 24px 22px; display:flex; flex-direction:column}
+.num{font-size:.78rem; color:var(--muted); margin:0}
+.lab{font-size:.82rem; color:var(--muted); margin:2px 0 18px}
+.head{margin:0 0 14px; color:var(--red); font-size:1.12rem; font-weight:700;
+  letter-spacing:-.025em; line-height:1.28}
+.desc{margin:0 0 20px; font-size:.93rem; color:var(--body)}
+.foot{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:auto; padding-top:8px}
+.foot a{color:var(--ink); font-weight:600; font-size:.9rem; text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.arw{display:grid; place-items:center; width:26px; height:26px; border-radius:999px;
+  background:var(--ink); color:#fff; font-size:.85rem; line-height:1; flex:0 0 26px}
+.urgent .foot a{color:var(--red)}
+.urgent .arw{background:var(--red)}
+
+.metrics{max-width:1140px; margin:34px auto 0; padding:0 28px; font-size:.8rem; color:#3A4753}
+.metrics code{background:#fff; border-radius:5px; padding:2px 6px}
+</style>
+</head>
+<body>
+
+<div class="band">
+  <div class="wrap">
+    <p class="eyebrow">Problem-first entry</p>
+    <h2>three moments when security<br>becomes a <em>business risk.</em></h2>
+    <p class="sub">Different triggers — one goal: reduce risk without slowing the business</p>
+
+    <div class="grid">
+
+      <article class="card">
+        <p class="num">/ 01</p>
+        <p class="lab">Scaling product</p>
+        <p class="head">You're shipping faster than anyone can check</p>
+        <p class="desc">New code, new cloud services, new pipelines every week. Nothing has broken, but nobody can say with confidence what's exposed — and slowing your engineers down isn't an option.</p>
+        <div class="foot"><a href="#">secure sdlc &amp; product security</a><span class="arw">→</span></div>
+      </article>
+
+      <article class="card">
+        <p class="num">/ 02</p>
+        <p class="lab">Known gaps</p>
+        <p class="head">Someone left in March, and you're not certain their access is gone</p>
+        <p class="desc">There's a report from last year with findings nobody closed. Tools are running that nobody has time to read. The network grew as the company grew, and nobody ever designed it.</p>
+        <div class="foot"><a href="#">security posture assessment</a><span class="arw">→</span></div>
+      </article>
+
+      <article class="card urgent">
+        <p class="num">/ 03</p>
+        <p class="lab">Incident pressure</p>
+        <p class="head">Something has happened and you can't yet tell how bad it is</p>
+        <p class="desc">Files encrypted, an account signing in that shouldn't be, a laptop gone with access to production. What you need first is an accurate picture — and someone who has put one together before.</p>
+        <div class="foot"><a href="#">talk to someone now</a><span class="arw">→</span></div>
+      </article>
+
+    </div>
+
+    <div class="metrics" id="metrics"></div>
+  </div>
+</div>
+
+<script>
+const cards=[...document.querySelectorAll(".grid .card")];
+window.addEventListener("load",function(){
+  const hs=cards.map(function(c){return Math.round(c.getBoundingClientRect().height);});
+  const heads=cards.map(function(c){return c.querySelector(".head").textContent.trim().length;});
+  const descs=cards.map(function(c){return c.querySelector(".desc").textContent.trim().length;});
+  const max=Math.max.apply(null,hs), min=Math.min.apply(null,hs);
+  document.getElementById("metrics").innerHTML=
+    "<b>Fit check</b> — heights <code>"+hs.join(" / ")+"</code> px · spread <code>"+(max-min)+
+    " px</code> · headline <code>"+heads.join(" / ")+"</code> chars · body <code>"+descs.join(" / ")+"</code> chars";
+});
+</script>
+</body>
+</html>
