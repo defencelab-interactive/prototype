@@ -146,6 +146,21 @@ nav a:hover{opacity:1}
 .geo span{background:#3E7A2E; color:#fff; border-radius:999px; padding:6px 16px; font-size:.85rem; font-weight:600}
 .geo span+span{background:#4F8C3A}
 
+
+/* who we are */
+.who{padding:70px 0 76px; background:#fff}
+.wlead{max-width:64ch; margin:18px auto 0; text-align:center; font-size:1.02rem}
+.wgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:42px}
+@media(max-width:1100px){.wgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.wgrid{grid-template-columns:1fr}}
+.wcard{background:#F7F9FC; border-radius:14px; padding:24px 22px}
+.wcard h3{font-size:.98rem; margin:0 0 9px; letter-spacing:-.02em; line-height:1.32}
+.wcard p{margin:0; font-size:.89rem}
+.wstd{margin-top:34px; padding-top:24px; border-top:1px solid var(--line);
+  display:flex; flex-wrap:wrap; gap:10px 14px; align-items:center; justify-content:center}
+.wstd em{font-style:normal; font-size:.84rem; color:var(--muted); margin-right:4px}
+.wstd span{font-size:.78rem; background:#EEF3FA; color:#3F5061; border-radius:999px; padding:6px 13px}
+
 /* three moments */
 .moments{background:var(--grey); padding:58px 0 66px}
 .moments h2 em{font-style:normal; color:var(--blue)}
@@ -421,7 +436,41 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
   <div class="wrap">
     <h2>trusted by product and security teams <em>scaling globally</em><span class="dot">.</span></h2>
     <ul class="verts"><li>FinTech</li><li>SaaS</li><li>Healthcare</li><li>Legal</li></ul>
-    <div class="geo"><span>United States</span><span>Europe</span></div>
+    <div class="geo"><span>United States</span><span>Canada</span><span>Europe</span></div>
+  </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="who" id="about">
+  <div class="wrap">
+    <p class="eyebrow">Who we are</p>
+    <h2>a security team that builds its own tools<span class="dot">.</span></h2>
+    <p class="wlead">We work with growing product companies across the United States, Canada and Europe, running security as an ongoing service rather than a series of projects. Where the tools we needed for that didn&#39;t exist, we built them.</p>
+
+    <div class="wgrid">
+      <article class="wcard">
+        <h3>We build what we use</h3>
+        <p>PhishAttack, MacBook Audit and the Audit Portal exist because nothing on the market did the job our engagements needed. It means we aren&#39;t limited to what a vendor happens to sell, and the tools change when the work does.</p>
+      </article>
+      <article class="wcard">
+        <h3>We test the ways in that get skipped</h3>
+        <p>Most testing points at the network and the applications. We also go through the front door of your offices, the inbox of your staff and the personal laptops nobody manages.</p>
+      </article>
+      <article class="wcard">
+        <h3>Your data stays where you put it</h3>
+        <p>The platforms we deploy run on your own infrastructure, so employee behaviour data and forensic evidence don&#39;t leave your perimeter. <span class="ph">[confirm which products]</span></p>
+      </article>
+      <article class="wcard">
+        <h3>AI proposes, a person signs off</h3>
+        <p>We use AI where it saves real time, triaging findings and spotting anomalies, but a proposed result is never accepted automatically. In forensic work that is a requirement rather than a precaution.</p>
+      </article>
+    </div>
+
+    <div class="wstd">
+      <em>We work to published methodology:</em>
+      <span>NIST CSF 2.0</span><span>PTES</span><span>NIST SP 800-115</span>
+      <span>OWASP WSTG</span><span>OWASP Wireless</span><span>MITRE ATT&amp;CK</span>
+    </div>
   </div>
 </section>
 
