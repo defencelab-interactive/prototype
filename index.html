@@ -142,10 +142,6 @@ nav a.plain::after{content:""}
 
 /* core services */
 .core{background:linear-gradient(180deg,var(--svc-a),var(--svc-b)); padding:62px 0 70px}
-.stage{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin:38px 0 12px}
-.stage p{margin:0; font-size:.74rem; letter-spacing:.15em; text-transform:uppercase;
-  color:#3D5470; font-weight:700}
-@media(max-width:900px){.stage{display:none}}
 .s-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
 @media(max-width:900px){.s-grid{grid-template-columns:1fr; gap:16px}}
 .scard{background:var(--card); border-radius:14px; box-shadow:var(--sh); padding:25px 23px 21px;
@@ -154,7 +150,12 @@ nav a.plain::after{content:""}
   background-image:linear-gradient(rgba(46,111,216,.07) 1px,transparent 1px),
                    linear-gradient(90deg,rgba(46,111,216,.07) 1px,transparent 1px);
   background-size:15px 15px; pointer-events:none}
-.scard .n{font-size:.77rem; color:var(--muted); margin:0 0 13px}
+.scard .top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 14px}
+.scard .n{font-size:.77rem; color:var(--muted); margin:0}
+.scard .stage{font-size:.68rem; letter-spacing:.11em; text-transform:uppercase; font-weight:700;
+  color:#3D5470; background:#EAF1FB; border-radius:999px; padding:5px 10px; white-space:nowrap}
+.scard .stage.once{background:#EAF5E2; color:#3E6B22}
+.scard .stage.prog{background:#EDE9FB; color:#5A4FA8}
 .scard .name{margin:0 0 3px; color:var(--blue); font-size:1.03rem; font-weight:700;
   letter-spacing:-.02em; line-height:1.26}
 .scard .plain{margin:0 0 11px; color:var(--ink); font-size:.98rem; font-weight:600;
@@ -417,13 +418,11 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
   <div class="wrap">
     <p class="eyebrow">Core services</p>
     <h2>what we actually do<span class="dot">.</span></h2>
-    <p class="sub">Six ways to work with us — from a one-off look at where you stand, to us running security for you.</p>
-
-    <div class="stage"><p>Start here</p><p>Then</p><p>Ongoing</p></div>
+    <p class="sub">Six ways to work with us. Two are a one-off look at where you stand, one is a programme that keeps it moving, three run continuously.</p>
 
     <div class="s-grid">
       <article class="scard">
-        <p class="n">/ 01</p>
+        <div class="top"><span class="n">/ 01</span><span class="stage once">one-off</span></div>
         <p class="name">security posture assessment</p>
         <p class="plain">Find out where you actually stand</p>
         <p class="d">We look at what you have and tell you which gaps matter and which don&#39;t — a short list, in the order things should be fixed.</p>
@@ -436,7 +435,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
       </article>
 
       <article class="scard">
-        <p class="n">/ 02</p>
+        <div class="top"><span class="n">/ 02</span><span class="stage prog">programme</span></div>
         <p class="name">devshield — managed security program</p>
         <p class="plain">Security with an owner every month</p>
         <p class="d">It stops being a project that ends. Every month there&#39;s a plan, someone whose job it is to close it, and a report you can pass upward.</p>
@@ -449,7 +448,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
       </article>
 
       <article class="scard">
-        <p class="n">/ 03</p>
+        <div class="top"><span class="n">/ 03</span><span class="stage">ongoing</span></div>
         <p class="name">mdr / mxdr — 24/7 detection &amp; response</p>
         <p class="plain">Someone is watching, and wakes up when it matters</p>
         <p class="d">Most companies already collect the evidence of a break-in and nobody reads it. We watch it, and when something is wrong we act on it.</p>
@@ -462,7 +461,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
       </article>
 
       <article class="scard">
-        <p class="n">/ 04</p>
+        <div class="top"><span class="n">/ 04</span><span class="stage">ongoing</span></div>
         <p class="name">vciso (fractional)</p>
         <p class="plain">A security lead without hiring one</p>
         <p class="d">The person who decides what matters first, answers customer and investor questions, and keeps the record — a few days a month, not a salary.</p>
@@ -475,7 +474,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
       </article>
 
       <article class="scard">
-        <p class="n">/ 05</p>
+        <div class="top"><span class="n">/ 05</span><span class="stage once">one-off</span></div>
         <p class="name">penetration testing</p>
         <p class="plain">We try to break in, on purpose</p>
         <p class="d">Real attempts against your apps, cloud and network, the way someone hostile would — then a list of what actually worked, worst first.</p>
@@ -488,7 +487,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
       </article>
 
       <article class="scard">
-        <p class="n">/ 06</p>
+        <div class="top"><span class="n">/ 06</span><span class="stage">ongoing</span></div>
         <p class="name">human risk management</p>
         <p class="plain">The part where somebody clicks the link</p>
         <p class="d">Most break-ins start with a person, not a server. We find who is vulnerable, train them, and show whether the risk is going down.</p>
