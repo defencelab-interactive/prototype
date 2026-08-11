@@ -201,35 +201,42 @@ nav a.plain::after{content:""}
   padding:6px 11px; font-size:.78rem; font-weight:600}
 .ccard .more{display:flex; align-items:center; gap:9px; margin-top:16px;
   font-size:.87rem; font-weight:600; color:var(--ink)}
-.ccard .more .arw{width:24px; height:24px; font-size:.78rem; transition:transform .2s}
+.ccard .more .arw{width:24px; height:24px; font-size:.78rem}
+.ccard .i-shut{display:none}
+.ccard[open] .i-shut{display:inline}
+.ccard[open] .i-open{display:none}
 .ccard .more .lbl-shut{display:none}
 .ccard[open] .more .lbl-shut{display:inline}
 .ccard[open] .more .lbl-open{display:none}
-.ccard[open] .more .arw{transform:rotate(90deg)}
 
-/* open case takes the full row and reads across, not down */
+/* open case: header and body share one 3-column grid, so the columns line up */
 .ccard[open]{grid-column:1/-1; box-shadow:var(--sh-lg); border-color:#C4D7EF; background:#FCFDFE}
 .ccard[open]>summary{
-  display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
-  column-gap:36px; padding:28px 28px 22px; border-bottom:1px solid var(--line)}
+  display:grid; grid-template-columns:repeat(3,1fr); column-gap:32px;
+  padding:30px 30px 24px; border-bottom:1px solid var(--line)}
 .ccard[open]>summary .tag {grid-column:1; grid-row:1}
-.ccard[open]>summary h3   {grid-column:1; grid-row:2; font-size:1.35rem; margin-bottom:14px}
+.ccard[open]>summary h3   {grid-column:1; grid-row:2; font-size:1.4rem; margin-bottom:15px}
 .ccard[open]>summary .num {grid-column:1; grid-row:3; justify-self:start}
-.ccard[open]>summary .more{grid-column:1; grid-row:4}
-.ccard[open]>summary .was {grid-column:2; grid-row:1/span 4; font-size:.95rem; margin:0}
-@media(max-width:820px){
+.ccard[open]>summary .more{grid-column:1; grid-row:4; margin-top:18px}
+.ccard[open]>summary .was {grid-column:2/span 2; grid-row:1/span 4; font-size:.98rem;
+  line-height:1.6; max-width:none; margin:0; color:#4C5966}
+@media(max-width:900px){
   .ccard[open]>summary{grid-template-columns:1fr; padding:22px 20px 18px}
   .ccard[open]>summary .tag,.ccard[open]>summary h3,.ccard[open]>summary .num,
   .ccard[open]>summary .more,.ccard[open]>summary .was{grid-column:1; grid-row:auto}
-  .ccard[open]>summary .was{margin:14px 0}
+  .ccard[open]>summary .was{margin:14px 0 0}
 }
-.cbody{padding:26px 28px 28px; display:grid; grid-template-columns:repeat(3,1fr); gap:28px}
-@media(max-width:900px){.cbody{grid-template-columns:1fr; gap:20px; padding:20px}}
-.cbody h4{margin:0 0 7px; font-size:.75rem; letter-spacing:.12em; text-transform:uppercase;
+.cbody{padding:28px 30px 30px; display:grid; grid-template-columns:repeat(3,1fr); column-gap:32px; row-gap:26px}
+@media(max-width:900px){.cbody{grid-template-columns:1fr; column-gap:0; padding:20px}}
+.cbody .part{position:relative; padding-left:0}
+.cbody .part+.part{border-left:1px solid var(--line); padding-left:32px; margin-left:-16px}
+@media(max-width:900px){.cbody .part+.part{border-left:0; padding-left:0; margin-left:0;
+  border-top:1px solid var(--line); padding-top:18px}}
+.cbody h4{margin:0 0 8px; font-size:.73rem; letter-spacing:.13em; text-transform:uppercase;
   color:var(--muted); font-weight:700}
-.cbody p{font-size:.89rem; margin:0}
+.cbody p{font-size:.9rem; margin:0; line-height:1.6}
 .cbody .lesson{grid-column:1/-1; background:#F1F6FB; border-radius:10px;
-  padding:16px 18px; font-size:.89rem}
+  padding:16px 20px; font-size:.9rem}
 .cbody .lesson b{color:var(--ink)}
 .callcases{text-align:center; margin-top:32px}
 
@@ -543,7 +550,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
           <h3>A whole company on a shop-bought router</h3>
           <p class="was">The office worked. Email arrived, files opened, Wi-Fi connected. The company had grown from a handful of people to a full operation and the network had grown with it, one device at a time, around a router bought from an electronics shop.</p>
           <span class="num">one flat network, one device, no record</span>
-          <span class="more"><span class="arw">→</span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
         </summary>
         <div class="cbody">
           <div class="part"><h4>What that meant</h4><p>Everything sat on one flat network — printer, cameras, laptops, personal phones and the systems holding company data could all reach each other. Nothing inspected what was leaving. Nothing recorded who had connected, or when. Updates happened when somebody remembered.</p></div>
@@ -559,7 +566,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
           <h3>Segmentation nobody notices</h3>
           <p class="was">A large site with cameras, door controllers, printers, meeting-room screens, corporate laptops and a constant flow of visitors. Everyone agreed these shouldn&#39;t share one network.</p>
           <span class="num">12 networks · still in place</span>
-          <span class="more"><span class="arw">→</span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
         </summary>
         <div class="cbody">
           <div class="part"><h4>What that meant</h4><p>This is the most commonly abandoned security project there is, for one reason: when you separate them properly, the things people use every day stop working. Printers vanish. Screen sharing dies. Within a fortnight the segmentation is quietly reversed.</p></div>
@@ -575,7 +582,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
           <h3>Wi-Fi that knows who you are</h3>
           <p class="was">One shared corporate Wi-Fi password — known by every current employee, every former employee, every contractor who had ever visited, and the personal phones of all of them. Changing it meant disrupting the whole company, so it never was.</p>
           <span class="num">offboarding: one action</span>
-          <span class="more"><span class="arw">→</span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
         </summary>
         <div class="cbody">
           <div class="part"><h4>What that meant</h4><p>Two consequences, and the second is worse. Access couldn&#39;t be removed when someone left. And the question &ldquo;who was on the network last Tuesday&rdquo; had no answer at all — the network could tell you a device had connected, not a person.</p></div>
@@ -591,7 +598,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
           <h3>Guest Wi-Fi that survives an audit</h3>
           <p class="was">A busy site with constant visitor traffic, and guest Wi-Fi that was either open enough to be a risk or awkward enough that reception ended up reading the password aloud across the lobby.</p>
           <span class="num">consent recorded · 30-day retention</span>
-          <span class="more"><span class="arw">→</span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
         </summary>
         <div class="cbody">
           <div class="part"><h4>What that meant</h4><p>The real exposure was elsewhere. Under European data protection rules, offering guest Wi-Fi means processing personal data. There was no recorded consent, no stated purpose, no retention position and no record of who had connected. Not a technical gap — a compliance gap.</p></div>
@@ -607,7 +614,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
           <h3>The quiet month when nothing happened</h3>
           <p class="was">A smaller satellite office with no technical staff on site — the kind of location where a problem is discovered by people being unable to work, and getting someone there takes half a day.</p>
           <span class="num">0 users disconnected</span>
-          <span class="more"><span class="arw">→</span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
         </summary>
         <div class="cbody">
           <div class="part"><h4>What that meant</h4><p>A known software fault in the firewall was leaking memory, roughly 30 to 40 megabytes a day. After about 25 days memory use crossed 88 percent and the device entered a protective mode: it stops accepting new connections and passes traffic without inspection. The office becomes unreliable and less protected at the same time, with no obvious outward sign.</p></div>
@@ -623,7 +630,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
           <h3>One console, every site</h3>
           <p class="was">A single large site that had grown into 24 switches and around two dozen access points across several buildings, with a group plan to open further offices internationally.</p>
           <span class="num">24 switches · one console</span>
-          <span class="more"><span class="arw">→</span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
         </summary>
         <div class="cbody">
           <div class="part"><h4>What that meant</h4><p>Every change meant touching equipment individually. Every new location meant designing it again, sending an experienced engineer, and ending up with a site that differed slightly from all the others in ways nobody documented. That inconsistency is the hidden cost of expansion: no two sites are quite the same, so every problem is a new problem.</p></div>
