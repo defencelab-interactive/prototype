@@ -187,19 +187,20 @@ nav a.plain::after{content:""}
 
 /* cases */
 .cases{padding:64px 0 72px; background:#fff}
-.c-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:36px; align-items:start}
+.c-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:36px; align-items:stretch}
 @media(max-width:1000px){.c-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:680px){.c-grid{grid-template-columns:1fr; gap:16px}}
 .ccard{border:1px solid var(--line); border-radius:14px; background:#fff; overflow:hidden;
-  transition:box-shadow .16s, border-color .16s}
+  display:flex; flex-direction:column; transition:box-shadow .16s, border-color .16s}
 .ccard:hover{box-shadow:var(--sh)}
-.ccard>summary{list-style:none; cursor:pointer; padding:24px 22px 20px; display:block}
+.ccard>summary{list-style:none; cursor:pointer; padding:24px 22px 20px;
+  display:flex; flex-direction:column; flex:1}
 .ccard>summary::-webkit-details-marker{display:none}
 .ccard .tag{font-size:.72rem; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); margin:0 0 11px}
 .ccard h3{font-size:1.04rem; margin:0 0 11px; letter-spacing:-.025em}
 .ccard .was{font-size:.89rem; margin:0 0 14px; color:#5B6874; max-width:46ch}
-.ccard .num{display:inline-block; background:#EAF5E2; color:#33691E; border-radius:7px;
-  padding:6px 11px; font-size:.78rem; font-weight:600}
+.ccard .num{align-self:flex-start; margin-top:auto; background:#EAF5E2; color:#33691E;
+  border-radius:7px; padding:6px 11px; font-size:.78rem; font-weight:600}
 .ccard .more{display:flex; align-items:center; gap:9px; margin-top:16px;
   font-size:.87rem; font-weight:600; color:var(--ink)}
 .ccard .more .arw{width:24px; height:24px; font-size:.78rem}
@@ -217,7 +218,7 @@ nav a.plain::after{content:""}
   padding:30px 30px 24px; border-bottom:1px solid var(--line)}
 .ccard[open]>summary .tag {grid-column:1; grid-row:1}
 .ccard[open]>summary h3   {grid-column:1; grid-row:2; font-size:1.4rem; margin-bottom:15px}
-.ccard[open]>summary .num {grid-column:1; grid-row:3; justify-self:start}
+.ccard[open]>summary .num {grid-column:1; grid-row:3; justify-self:start; margin-top:0}
 .ccard[open]>summary .more{grid-column:1; grid-row:4; margin-top:18px}
 .ccard[open]>summary .was {grid-column:2/span 2; grid-row:1/span 4; font-size:.98rem;
   line-height:1.6; max-width:none; margin:0; color:#4C5966}
