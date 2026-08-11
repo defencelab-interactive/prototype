@@ -99,22 +99,15 @@ nav a.plain::after{content:""}
 .c1{left:9%;  top:40%}
 .c2{left:56%; top:44%}
 .c3{left:23%; top:53%}
-.c4{right:5%; top:60%}
+.c4{right:14%; top:58%}
 .c5{left:2%;  top:68%}
 .c6{left:44%; top:74%}
-
-/* the human touch their hero has: a face, small, off to the side */
-.avatar{position:absolute; right:12%; top:6%; z-index:6; width:52px; height:52px;
-  border-radius:14px; background:#fff; box-shadow:var(--sh); display:grid; place-items:center}
-.avatar span{width:34px; height:34px; border-radius:999px;
-  background:linear-gradient(160deg,#8DA7C4,#5B7794)}
 
 @media(max-width:860px){
   .hero{padding:110px 0 30px}
   .stagearea{margin-top:-10px; min-height:0; display:flex; flex-wrap:wrap; gap:9px; justify-content:center}
   .mark{position:relative; left:auto; top:auto; transform:none; width:74vw; margin:6px auto 18px; order:-1}
   .chip{position:static; inset:auto}
-  .avatar{position:static; margin:0 auto 14px}
 }
 
 /* trusted */
@@ -357,7 +350,6 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 
     <div class="stagearea">
       <div class="mark" aria-hidden="true"></div>
-      <div class="avatar" aria-hidden="true"><span></span></div>
       <span class="chip c1"><b>✓</b> executive-ready reporting</span>
       <span class="chip c2"><b>✓</b> senior engineers only</span>
       <span class="chip c3"><b>✓</b> 24/7 monitored coverage</span>
