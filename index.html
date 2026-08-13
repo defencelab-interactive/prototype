@@ -101,7 +101,10 @@ nav a:hover{opacity:1}
   background:linear-gradient(175deg,#9FBFE9 0%,#AFCAEC 42%,#C9DCF3 78%,#E4EDF8 100%)}
 .hero .wrap{text-align:center}
 .hero h1{max-width:17ch; margin:0 auto}
-.hero .lede{max-width:56ch; margin:20px auto 0; font-size:clamp(1rem,1.2vw,1.12rem); color:#2E3C49}
+.hero .lede{max-width:62ch; margin:20px auto 0; font-size:clamp(1rem,1.2vw,1.12rem);
+  color:#2E3C49; font-style:italic}
+.heroline{max-width:56ch; margin:18px auto 0; font-size:1.02rem; font-weight:700;
+  color:var(--ink); letter-spacing:-.02em}
 .hero-acts{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:26px; position:relative; z-index:6}
 .badge{display:inline-flex; align-items:center; gap:10px; margin-bottom:18px;
   font-size:.95rem; font-weight:500; color:var(--ink)}
@@ -289,6 +292,16 @@ nav a:hover{opacity:1}
 
 /* why switch */
 .why{padding:66px 0 74px; background:#fff}
+.w-grid.four{grid-template-columns:repeat(4,1fr)}
+.w-grid.four .w:nth-child(3n){border-right:1px solid var(--line)}
+.w-grid.four .w:nth-child(4n){border-right:0}
+.w-grid.four .w{border-bottom:0}
+@media(max-width:1100px){
+  .w-grid.four{grid-template-columns:repeat(2,1fr)}
+  .w-grid.four .w:nth-child(3n){border-right:0}
+  .w-grid.four .w:nth-child(2n){border-right:0}
+  .w-grid.four .w:nth-child(-n+2){border-bottom:1px solid var(--line)}
+}
 .w-grid{display:grid; grid-template-columns:repeat(3,1fr); margin-top:36px;
   border:1px solid var(--line); border-radius:14px; overflow:hidden;
   background:linear-gradient(115deg,#EDF3FC 0%,#EFF5FB 55%,#EAF5E2 100%)}
@@ -412,8 +425,9 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 <section class="hero">
   <div class="wrap">
     <p class="badge"><b>◈</b> Welcome to Defence Lab</p>
-    <h1>from security gaps to continuous protection<span class="dot">.</span></h1>
-    <p class="lede">Assessment, hardening, detection and response, and ongoing improvement — delivered as one accountable service.</p>
+    <h1>Clear security. Real protection<span class="dot">.</span></h1>
+    <p class="lede">Some organizations are mapping their risk for the first time. Others already know what&#39;s broken. Either way, we start where you are — not from a script — and tell you what we find in language you can act on.</p>
+    <p class="heroline">One working conversation. No pitch, no deck.</p>
     <div class="hero-acts">
       <a class="btn solid" href="#">book a consultation <i>›</i></a>
       <a class="btn" href="#core">view services <i>›</i></a>
@@ -424,7 +438,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
       <span class="chip c1"><b>✓</b> executive-ready reporting</span>
       <span class="chip c2"><b>✓</b> senior engineers only</span>
       <span class="chip c3"><b>✓</b> 24/7 monitored coverage</span>
-      <span class="chip c4"><b>✓</b> works with your existing stack</span>
+      <span class="chip c4"><b>✓</b> no rip-and-replace</span>
       <span class="chip c5"><b>✓</b> ISO / NIST-aligned delivery</span>
       <span class="chip c6"><b>✓</b> SLA-backed response times</span>
     </div>
@@ -434,7 +448,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 <!-- TRUSTED -->
 <section class="trusted">
   <div class="wrap">
-    <h2>trusted by product and security teams <em>scaling globally</em><span class="dot">.</span></h2>
+    <h2>trusted by teams <em>building and scaling globally</em><span class="dot">.</span></h2>
     <ul class="verts"><li>FinTech</li><li>SaaS</li><li>Healthcare</li><li>Legal</li></ul>
     <div class="geo"><span>United States</span><span>Canada</span><span>Europe</span></div>
   </div>
@@ -606,7 +620,7 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 <section class="prods" id="prods">
   <div class="khead">
     <p class="eyebrow">Products</p>
-    <h2>targeted services for real security risks<span class="dot">.</span></h2>
+    <h2>Products built around real security questions<span class="dot">.</span></h2>
   </div>
   <div class="wrap">
     <div class="p-grid">
@@ -747,15 +761,13 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 <!-- WHY SWITCH -->
 <section class="why">
   <div class="wrap">
-    <p class="eyebrow">Why teams switch</p>
-    <h2>why teams switch to defence lab<span class="dot">.</span></h2>
-    <div class="w-grid">
-      <div class="w"><em>◎</em><b>readable by your board and your engineers</b><span>The same findings arrive in two views: a summary a decision can be made from, and the technical detail underneath it, so nobody has to translate between them.</span></div>
-      <div class="w"><em>▤</em><b>engineers, not account managers</b><span>You talk to the person doing the work rather than someone relaying it, and there is no handover between whoever sold the engagement and whoever runs it.</span></div>
-      <div class="w"><em>◈</em><b>built for product teams</b><span>Controls that get in the way tend to be removed regardless of what the policy says, so we build the kind that can survive a release schedule.</span></div>
-      <div class="w"><em>↻</em><b>continuous, not one-off</b><span>A report starts going out of date as soon as it is written, so what matters more is who owns the next fix and whether last year&#39;s findings were ever closed.</span></div>
-      <div class="w"><em>⊞</em><b>works with your stack</b><span>We work with the tools you already pay for, nothing here depends on buying our platform, and leaving us doesn&#39;t mean starting over.</span></div>
-      <div class="w"><em>⌘</em><b>designed for control and auditability</b><span>Least privilege and time-bound access, with read-only accounts for your own IT and security leads, so you never have to ask us what is configured.</span></div>
+    <p class="eyebrow">What working with us actually gives you</p>
+    <h2>the difference is in how the work gets done<span class="dot">.</span></h2>
+    <div class="w-grid four">
+      <div class="w"><em>◉</em><b>The same people, start to finish</b><span>The engineers who scope your engagement are the ones who deliver it. Your CISO keeps a direct line to the technical lead, so the people making the recommendations are the people carrying them out — no handoff, no re-explaining your environment to a new team.</span></div>
+      <div class="w"><em>◈</em><b>We build the tooling the work needs</b><span>Where off-the-shelf tools stop short, we write our own — internal automation, testing harnesses, and purpose-built platforms. The assessment adapts to your architecture instead of forcing your architecture through a generic scanner.</span></div>
+      <div class="w"><em>⌘</em><b>Access you can audit</b><span>Every credential and permission is scoped to the work, logged while it&#39;s in use, and revoked when the engagement ends. You get a written record of exactly what was touched, and when. Nothing lingers.</span></div>
+      <div class="w"><em>▤</em><b>Reports built to act on</b><span>Findings ranked by real business impact, with reproduction steps precise enough for your engineers and a summary clear enough for your board. A document that drives fixes, not a 200-page PDF that sits in a drive.</span></div>
     </div>
   </div>
 </section>
@@ -764,9 +776,9 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 <section class="proc">
   <div class="wrap">
     <p class="eyebrow">Process</p>
-    <h2>a security model that works in real environments<span class="dot">.</span></h2>
+    <h2>security built around how your business actually works<span class="dot">.</span></h2>
     <div class="shield" aria-hidden="true">◈</div>
-    <p class="shield-lab">the same team across all five stages</p>
+    <p class="shield-lab">one team across all five stages</p>
     <div class="steps">
       <div class="step">
         <p class="no">01</p>
@@ -806,8 +818,8 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 <section class="trust">
   <div class="wrap">
     <p class="eyebrow">Trust &amp; governance</p>
-    <h2>transparent, accountable, <em>controlled access to your systems</em><span class="dot">.</span></h2>
-    <p class="sub">Least privilege and time-bound access across all engagements, with full traceability.</p>
+    <h2>every action is traceable, every access is time-bound, and <em>nothing happens behind closed doors</em><span class="dot">.</span></h2>
+    <p class="sub">Access is limited to what&#39;s needed — and ends when the work is done.</p>
     <div class="tgrid">
       <div class="t"><b>You can see everything we see</b><span>Your own IT and security leads get read-only accounts, so you never have to ask us what is configured.</span></div>
       <div class="t"><b>Written so someone else could take over</b><span>Documentation written plainly enough that a new hire or a different provider could actually use it.</span></div>
