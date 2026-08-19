@@ -379,6 +379,31 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
 .fbot nav a{color:#9AA7B2; text-decoration:none; opacity:1}
 .fbot nav a:hover{color:#fff; text-decoration:underline}
 @media(prefers-reduced-motion:reduce){*{transition:none !important}}
+
+.crumbs{background:#EEF2F7;border-bottom:1px solid var(--line);font-size:.84rem}
+.crumbs .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-top:13px;padding-bottom:13px}
+.crumbs a{color:var(--body);text-decoration:none}
+.crumbs a:hover{color:var(--ink);text-decoration:underline}
+.crumbs span.sep{color:#B4BFC9}
+.crumbs span.here{color:var(--ink);font-weight:600}
+.siblings{background:var(--grey-2);padding:52px 0 58px;border-top:1px solid var(--line)}
+.siblings h2{font-size:clamp(1.3rem,2.2vw,1.7rem)}
+.sibgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:28px}
+@media(max-width:1100px){.sibgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.sibgrid{grid-template-columns:1fr}}
+.sib{background:#fff;border-radius:12px;box-shadow:var(--sh);padding:18px 18px 16px;
+  text-decoration:none;display:block;transition:box-shadow .16s,transform .16s}
+.sib:hover{box-shadow:var(--sh-lg);transform:translateY(-2px)}
+.sib b{display:block;color:var(--ink);font-size:.95rem;letter-spacing:-.02em;margin-bottom:5px}
+.sib span{font-size:.83rem;color:var(--body);line-height:1.4}
+.sibfoot{text-align:center;margin-top:24px;font-size:.88rem}
+.sibfoot a{color:var(--blue);font-weight:600;text-decoration:none}
+.sibfoot a:hover{text-decoration:underline}
+.altflag{position:fixed;right:14px;bottom:14px;z-index:90;background:var(--ink);color:#fff;
+  border-radius:999px;padding:9px 16px;font-size:.79rem;box-shadow:0 8px 24px rgba(15,23,32,.28);
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.altflag b{color:#7FC241;font-weight:700}
+.altflag:hover{background:#1B2733}
 </style>
 </head>
 <body>
@@ -391,12 +416,12 @@ footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
         <div class="mega">
           <div class="megagrid"><a class="cat" href="protect/people/"><h5>People</h5><p>The inbox, and the person reading it.</p><span>4 services</span></a><a class="cat" href="protect/code-and-delivery/"><h5>Code &amp; delivery</h5><p>What your engineers ship.</p><span>3 services</span></a><a class="cat" href="protect/infrastructure-and-cloud/"><h5>Infrastructure &amp; cloud</h5><p>The systems the business runs on.</p><span>4 services</span></a><a class="cat" href="protect/devices/"><h5>Devices</h5><p>Laptops nobody manages.</p><span>2 services</span></a><a class="cat" href="protect/offices/"><h5>Offices</h5><p>The front door, and the room behind it.</p><span>2 services</span></a><a class="cat" href="protect/governance-and-compliance/"><h5>Governance &amp; compliance</h5><p>What you have to be able to prove.</p><span>3 services</span></a></div>
           <div class="megafoot">
-            <a href="services/">All services &rarr;</a>
             <a href="products/">Platforms &rarr;</a>
             <a href="contact/">Not sure where you fit? &rarr;</a>
           </div>
         </div>
       </span>
+      <a href="services/">all services.</a>
       <a href="vendors/">vendors.</a>
       <a href="#">blog.<span class="soon">soon</span></a>
       <a href="about/">about us.</a>
@@ -874,6 +899,6 @@ document.addEventListener("click",function(){
     i.classList.remove("open");i.querySelector(".navbtn").setAttribute("aria-expanded","false");});
 });
 </script>
-<a style="position:fixed;right:14px;bottom:14px;z-index:90;background:#0F1720;color:#fff;border-radius:999px;padding:9px 16px;font-size:.79rem;box-shadow:0 8px 24px rgba(15,23,32,.28);text-decoration:none;display:inline-flex;align-items:center;gap:8px" href="../alt/index.html"><b style="color:#7FC241">MIRROR</b> exact copy of stage &mdash; open the alt version</a>
+<a class="altflag" href="../mirror/index.html"><b>ALT</b> navigation prototype &mdash; open the mirror</a>
 </body>
 </html>
