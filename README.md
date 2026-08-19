@@ -11,7 +11,7 @@ Two full versions of the site, same content, different navigation.
 
 1. Breadcrumbs on every inner page — `Home › All services › Infrastructure & cloud`
 2. "The other five things we protect" at the foot of each category page, so categories can be compared without going back to the menu
-3. `all services.` promoted to its own item in the top bar, instead of sitting third inside the dropdown
+3. `All 18 services in one list` moved to the top of the dropdown, where it opens the moment the menu does &mdash; instead of sitting third in the footer of it. The menu stays a single entry point: services and platforms are not split back into separate items.
 
 A button at the bottom right of either version switches to the other.
 
