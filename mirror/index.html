@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Defence Lab &mdash; clear security, real protection</title>
+<meta name="description" content="Cybersecurity for growing product companies. Assessment, hardening, detection and response, and ongoing improvement &mdash; delivered as one accountable service.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --hero-a:#A5C2E7; --hero-b:#C6D9F1;
+  --svc-a:#B4CBEC;  --svc-b:#C9DBF2;
+  --grey:#F2F3F5;   --grey-2:#F6F7F9;
+  --trust-a:#CBDCF3; --trust-b:#DDE9F7;
+  --card:#FFFFFF;
+  --ink:#0F1720; --body:#48545F; --muted:#8D99A4;
+  --blue:#2E6FD8; --blue-dk:#22539F; --red:#E0242B; --green:#7FC241;
+  --chip:#EAF1FB; --chip-ink:#3F5061;
+  --line:rgba(15,23,32,.09);
+  --sh:0 3px 14px rgba(28,44,72,.08);
+  --sh-lg:0 10px 34px rgba(28,44,72,.13);
+  --sans:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --wrap:1680px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{margin:0; background:#fff; color:var(--body); font-family:var(--sans);
+  font-size:16px; line-height:1.56; -webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--wrap); margin:0 auto; padding:0 clamp(20px,2.2vw,40px); position:relative; z-index:2}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blue); outline-offset:3px; border-radius:6px}
+
+h1,h2,h3{margin:0; color:var(--ink); font-weight:700; letter-spacing:-.035em; line-height:1.12}
+section h2{text-align:center; max-width:32ch; margin-left:auto; margin-right:auto}
+h1{font-size:clamp(2.1rem,5vw,4.5rem)}
+h2{font-size:clamp(1.6rem,3.4vw,2.9rem)}
+h3{font-size:1.02rem; font-weight:700; letter-spacing:-.02em; line-height:1.3}
+p{margin:0 0 1rem}
+.dot{color:var(--green)}
+.eyebrow{text-align:center; font-size:.8rem; color:#5A6773; margin:0 0 12px}
+.sub{text-align:center; max-width:64ch; margin:18px auto 0; font-size:1rem; color:#42505C}
+.tbd{font-size:.75rem; color:#9C5A15; background:#FCF2E4; border-radius:6px; padding:3px 8px; white-space:nowrap}
+
+/* buttons */
+.btn{display:inline-flex; align-items:center; gap:9px; font-size:.94rem; font-weight:600;
+  padding:12px 14px 12px 22px; border-radius:999px; text-decoration:none; cursor:pointer;
+  border:0; background:var(--card); color:var(--ink); box-shadow:var(--sh);
+  font-family:var(--sans); transition:transform .16s, box-shadow .16s}
+.btn:hover{transform:translateY(-1px); box-shadow:var(--sh-lg)}
+.btn i{display:grid; place-items:center; width:22px; height:22px; border-radius:999px;
+  background:var(--ink); color:#fff; font-size:.78rem; font-style:normal; line-height:1}
+.btn.solid{background:var(--blue); color:#fff}
+.btn.solid i{background:rgba(255,255,255,.24); color:#fff}
+.btn.danger{background:var(--red); color:#fff}
+.btn.danger i{background:rgba(255,255,255,.25)}
+.btn.flat{box-shadow:none; background:transparent; padding-left:0}
+
+/* header */
+header{position:absolute; inset:18px 0 auto; z-index:30}
+header .wrap{max-width:1600px}
+.bar{display:flex; align-items:center; gap:24px; background:rgba(255,255,255,.9);
+  border-radius:999px; padding:10px 12px 10px 24px; box-shadow:var(--sh); max-width:1520px; margin:0 auto}
+.logo{display:flex; align-items:center; gap:9px; font-weight:700; color:var(--ink);
+  text-decoration:none; letter-spacing:-.03em; margin-right:auto; font-size:1rem}
+nav{display:flex; gap:20px; font-size:.9rem; font-weight:500}
+nav a{text-decoration:none; color:var(--ink); opacity:.85}
+nav a:hover{opacity:1}
+@media(max-width:1020px){nav{display:none}}
+
+
+/* mega menu */
+.navitem{position:relative}
+.navbtn{font:inherit; font-size:.9rem; font-weight:500; color:var(--ink); opacity:.85;
+  background:none; border:0; padding:6px 0; cursor:pointer; display:inline-flex; align-items:center; gap:5px}
+.navbtn:hover{opacity:1}
+.navbtn[aria-expanded="true"]{opacity:1; color:var(--blue)}
+.navbtn i{font-style:normal; font-size:.72rem; opacity:.55; transition:transform .18s}
+.navbtn[aria-expanded="true"] i{transform:rotate(180deg); opacity:1}
+
+.mega{position:absolute; left:50%; transform:translateX(-50%) translateY(8px); top:100%;
+  width:min(720px,calc(100vw - 48px)); background:#fff; border-radius:18px;
+  box-shadow:0 24px 60px rgba(28,44,72,.18); padding:14px; display:none; z-index:60}
+.navitem.open .mega{display:block}
+.megagrid{display:grid; grid-template-columns:repeat(3,1fr); gap:6px}
+@media(max-width:820px){.megagrid{grid-template-columns:repeat(2,1fr)}}
+.cat{display:block; text-decoration:none; border-radius:12px; padding:14px 15px 15px;
+  transition:background .14s}
+.cat:hover{background:#F4F8FD}
+.cat h5{margin:0 0 4px; font-size:.92rem; letter-spacing:-.02em; color:var(--ink); font-weight:700}
+.cat p{margin:0; font-size:.8rem; color:var(--body); line-height:1.4}
+.cat span{display:block; margin-top:8px; font-size:.68rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); font-weight:700}
+.megafoot{border-top:1px solid var(--line); margin:12px 3px 0; padding:14px 12px 4px;
+  display:flex; flex-wrap:wrap; gap:8px 20px; font-size:.85rem}
+.megafoot a{color:var(--blue); font-weight:600; text-decoration:none}
+.megafoot a:hover{text-decoration:underline}
+
+/* hero */
+.hero{position:relative; overflow:hidden; padding:132px 0 40px;
+  background:linear-gradient(175deg,#9FBFE9 0%,#AFCAEC 42%,#C9DCF3 78%,#E4EDF8 100%)}
+.hero .wrap{text-align:center}
+.hero h1{max-width:17ch; margin:0 auto}
+.hero .lede{max-width:62ch; margin:20px auto 0; font-size:clamp(1rem,1.2vw,1.12rem);
+  color:#2E3C49; font-style:italic}
+.heroline{max-width:56ch; margin:18px auto 0; font-size:1.02rem; font-weight:700;
+  color:var(--ink); letter-spacing:-.02em}
+.hero-acts{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:26px; position:relative; z-index:6}
+.badge{display:inline-flex; align-items:center; gap:10px; margin-bottom:18px;
+  font-size:.95rem; font-weight:500; color:var(--ink)}
+.badge b{display:grid; place-items:center; width:34px; height:34px; background:var(--white);
+  border-radius:10px; box-shadow:var(--sh); font-size:.9rem}
+
+/* the 3D asset sits behind the stack; concentric rings stand in for the real render */
+.stagearea{position:relative; margin-top:-46px; min-height:clamp(320px,38vw,470px)}
+.mark{position:absolute; left:50%; top:0; transform:translateX(-50%);
+  width:min(560px,72vw); aspect-ratio:1.1/1; pointer-events:none; z-index:1;
+  background:
+    repeating-radial-gradient(closest-side at 46% 52%,
+      rgba(255,255,255,.92) 0 4px, rgba(255,255,255,0) 4px 20px),
+    radial-gradient(closest-side at 46% 52%, rgba(255,255,255,.5), transparent 78%);
+  mask-image:radial-gradient(closest-side at 46% 52%, #000 62%, transparent 92%);
+  filter:drop-shadow(0 10px 26px rgba(40,80,140,.16))}
+
+.chip{position:absolute; z-index:5; display:inline-flex; align-items:center; gap:8px;
+  background:#fff; border-radius:999px; padding:9px 16px; font-size:.85rem; color:#3C4954;
+  box-shadow:0 6px 20px rgba(30,60,100,.13); white-space:nowrap}
+.chip b{color:var(--green); font-size:.95rem; line-height:1}
+.c1{left:9%;  top:40%}
+.c2{left:56%; top:44%}
+.c3{left:23%; top:53%}
+.c4{right:14%; top:58%}
+.c5{left:2%;  top:68%}
+.c6{left:44%; top:74%}
+
+@media(max-width:860px){
+  .hero{padding:110px 0 30px}
+  .stagearea{margin-top:-10px; min-height:0; display:flex; flex-wrap:wrap; gap:9px; justify-content:center}
+  .mark{position:relative; left:auto; top:auto; transform:none; width:74vw; margin:6px auto 18px; order:-1}
+  .chip{position:static; inset:auto}
+}
+
+/* trusted */
+.trusted{padding:64px 0 70px; text-align:center; background:#fff}
+.trusted h2 em{font-style:normal; color:var(--blue)}
+.verts{display:flex; gap:9px; justify-content:center; flex-wrap:wrap; margin:22px 0 0; padding:0; list-style:none}
+.verts li{background:var(--chip); color:var(--chip-ink); border-radius:999px; padding:7px 15px; font-size:.85rem}
+.geo{display:flex; gap:10px; justify-content:center; margin-top:26px; flex-wrap:wrap}
+.geo span{background:#3E7A2E; color:#fff; border-radius:999px; padding:6px 16px; font-size:.85rem; font-weight:600}
+.geo span+span{background:#4F8C3A}
+
+
+/* who we are */
+.who{padding:70px 0 76px; background:#fff}
+.wlead{max-width:64ch; margin:18px auto 0; text-align:center; font-size:1.02rem}
+.wgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:42px}
+@media(max-width:1100px){.wgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.wgrid{grid-template-columns:1fr}}
+.wcard{background:#F7F9FC; border-radius:14px; padding:24px 22px}
+.wcard h3{font-size:.98rem; margin:0 0 9px; letter-spacing:-.02em; line-height:1.32}
+.wcard p{margin:0; font-size:.89rem}
+.wstd{margin-top:34px; padding-top:24px; border-top:1px solid var(--line);
+  display:flex; flex-wrap:wrap; gap:10px 14px; align-items:center; justify-content:center}
+.wstd em{font-style:normal; font-size:.84rem; color:var(--muted); margin-right:4px}
+.wstd span{font-size:.78rem; background:#EEF3FA; color:#3F5061; border-radius:999px; padding:6px 13px}
+
+/* three moments */
+.moments{background:var(--grey); padding:58px 0 66px}
+.moments h2 em{font-style:normal; color:var(--blue)}
+.m-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:38px}
+@media(max-width:900px){.m-grid{grid-template-columns:1fr; gap:16px}}
+.mcard{background:var(--card); border-radius:12px; box-shadow:var(--sh); padding:26px 24px 22px;
+  display:flex; flex-direction:column}
+.mcard .n{font-size:.77rem; color:var(--muted); margin:0}
+.mcard .lab{font-size:.82rem; color:var(--muted); margin:2px 0 18px}
+.mcard .h{margin:0 0 13px; color:var(--ink); font-size:1.1rem; font-weight:700;
+  letter-spacing:-.025em; line-height:1.3}
+.mcard p.d{margin:0 0 18px; font-size:.92rem; max-width:44ch}
+.mcard .out{margin:0 0 18px; padding:13px 15px; background:#F4F9EE; border-radius:9px;
+  font-size:.88rem; color:#3A4A3A}
+.mcard .out b{display:block; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+  color:#3E6B22; margin-bottom:5px; font-weight:700}
+.mfoot{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:auto; padding-top:6px}
+.mfoot a{color:var(--ink); font-weight:600; font-size:.89rem; text-decoration:none}
+.mfoot a:hover{text-decoration:underline}
+.arw{display:grid; place-items:center; width:26px; height:26px; border-radius:999px;
+  background:var(--ink); color:#fff; font-size:.82rem; line-height:1; flex:0 0 26px}
+.mcard.urgent .mfoot a{color:var(--red)}
+.mcard.urgent .arw{background:var(--red)}
+
+/* core services */
+.core{background:linear-gradient(180deg,var(--svc-a),var(--svc-b)); padding:62px 0 70px}
+.s-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
+@media(max-width:900px){.s-grid{grid-template-columns:1fr; gap:16px}}
+.scard{background:var(--card); border-radius:14px; box-shadow:var(--sh); padding:25px 23px 21px;
+  display:flex; flex-direction:column; position:relative; overflow:hidden}
+.scard::after{content:""; position:absolute; right:-26px; bottom:-26px; width:140px; height:140px;
+  background-image:linear-gradient(rgba(46,111,216,.07) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(46,111,216,.07) 1px,transparent 1px);
+  background-size:15px 15px; pointer-events:none}
+.scard .top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 14px}
+.scard .n{font-size:.77rem; color:var(--muted); margin:0}
+.scard .stage{font-size:.68rem; letter-spacing:.11em; text-transform:uppercase; font-weight:700;
+  color:#3D5470; background:#EAF1FB; border-radius:999px; padding:5px 10px; white-space:nowrap}
+.scard .stage.once{background:#EAF5E2; color:#3E6B22}
+.scard .stage.prog{background:#EDE9FB; color:#5A4FA8}
+.scard .name{margin:0 0 3px; color:var(--blue); font-size:1.03rem; font-weight:700;
+  letter-spacing:-.02em; line-height:1.26}
+.scard .plain{margin:0 0 11px; color:var(--ink); font-size:.98rem; font-weight:600;
+  letter-spacing:-.02em; line-height:1.32}
+.scard .d{margin:0 0 16px; font-size:.9rem; max-width:46ch; display:-webkit-box; -webkit-line-clamp:4;
+  -webkit-box-orient:vertical; overflow:hidden}
+.tags{list-style:none; margin:0 0 18px; padding:0; display:flex; flex-wrap:wrap; gap:6px}
+.tags li{background:var(--chip); color:var(--chip-ink); border-radius:7px; padding:6px 11px;
+  font-size:.79rem; line-height:1.35}
+.sfoot{display:flex; align-items:center; justify-content:space-between; gap:10px;
+  margin-top:auto; padding-top:4px; position:relative; z-index:2}
+.sfoot a{color:var(--ink); font-weight:600; font-size:.89rem; text-decoration:none}
+.sfoot a:hover{text-decoration:underline}
+
+/* products */
+.prods{background:var(--grey-2); padding:60px 0 68px}
+.prods .khead{max-width:var(--wrap); margin:0 auto; padding:0 28px}
+.prods .eyebrow{letter-spacing:.14em; text-transform:uppercase; font-size:.72rem; color:#66727E}
+
+.p-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:32px}
+@media(max-width:1000px){.p-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.p-grid{grid-template-columns:1fr}}
+.pcard{background:#EEF3FB; border-radius:12px; padding:22px 20px 18px; display:flex; flex-direction:column}
+.pcard h3{margin:0 0 4px}
+.pcard p{font-size:.88rem; margin:0 0 16px}
+.pcard a{margin-top:auto; font-size:.86rem; font-weight:600; color:var(--ink); text-decoration:none}
+.pcard a:hover{text-decoration:underline}
+
+
+/* cases */
+.cases{padding:64px 0 72px; background:#fff}
+.c-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:36px; align-items:stretch}
+@media(max-width:1000px){.c-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.c-grid{grid-template-columns:1fr; gap:16px}}
+.ccard{border:1px solid var(--line); border-radius:14px; background:#fff; overflow:hidden;
+  display:flex; flex-direction:column; transition:box-shadow .16s, border-color .16s}
+.ccard:hover{box-shadow:var(--sh)}
+.ccard>summary{list-style:none; cursor:pointer; padding:24px 22px 20px;
+  display:flex; flex-direction:column; flex:1}
+.ccard>summary::-webkit-details-marker{display:none}
+.ccard .tag{font-size:.72rem; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); margin:0 0 11px}
+.ccard h3{font-size:1.04rem; margin:0 0 11px; letter-spacing:-.025em}
+.ccard .was{font-size:.89rem; margin:0 0 14px; color:#5B6874; max-width:46ch}
+.ccard .num{align-self:flex-start; margin-top:auto; background:#EAF5E2; color:#33691E;
+  border-radius:7px; padding:6px 11px; font-size:.78rem; font-weight:600}
+.ccard .more{display:flex; align-items:center; gap:9px; margin-top:16px;
+  font-size:.87rem; font-weight:600; color:var(--ink)}
+.ccard .more .arw{width:24px; height:24px; font-size:.78rem}
+.ccard .i-shut{display:none}
+.ccard[open] .i-shut{display:inline}
+.ccard[open] .i-open{display:none}
+.ccard .more .lbl-shut{display:none}
+.ccard[open] .more .lbl-shut{display:inline}
+.ccard[open] .more .lbl-open{display:none}
+
+/* open case: header and body share one 3-column grid, so the columns line up */
+.ccard[open]{grid-column:1/-1; box-shadow:var(--sh-lg); border-color:#C4D7EF; background:#FCFDFE}
+.ccard[open]>summary{
+  display:grid; grid-template-columns:repeat(3,1fr); column-gap:32px;
+  padding:30px 30px 24px; border-bottom:1px solid var(--line)}
+.ccard[open]>summary .tag {grid-column:1; grid-row:1}
+.ccard[open]>summary h3   {grid-column:1; grid-row:2; font-size:1.4rem; margin-bottom:15px}
+.ccard[open]>summary .num {grid-column:1; grid-row:3; justify-self:start; margin-top:0}
+.ccard[open]>summary .more{grid-column:1; grid-row:4; margin-top:18px}
+.ccard[open]>summary .was {grid-column:2/span 2; grid-row:1/span 4; font-size:.98rem;
+  line-height:1.6; max-width:none; margin:0; color:#4C5966}
+@media(max-width:900px){
+  .ccard[open]>summary{grid-template-columns:1fr; padding:22px 20px 18px}
+  .ccard[open]>summary .tag,.ccard[open]>summary h3,.ccard[open]>summary .num,
+  .ccard[open]>summary .more,.ccard[open]>summary .was{grid-column:1; grid-row:auto}
+  .ccard[open]>summary .was{margin:14px 0 0}
+}
+.cbody{padding:28px 30px 30px; display:grid; grid-template-columns:repeat(3,1fr); column-gap:32px; row-gap:26px}
+@media(max-width:900px){.cbody{grid-template-columns:1fr; column-gap:0; padding:20px}}
+.cbody .part{position:relative; padding-left:0}
+.cbody .part+.part{border-left:1px solid var(--line); padding-left:32px; margin-left:-16px}
+@media(max-width:900px){.cbody .part+.part{border-left:0; padding-left:0; margin-left:0;
+  border-top:1px solid var(--line); padding-top:18px}}
+.cbody h4{margin:0 0 8px; font-size:.73rem; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--muted); font-weight:700}
+.cbody p{font-size:.9rem; margin:0; line-height:1.6}
+.cbody .lesson{grid-column:1/-1; background:#F1F6FB; border-radius:10px;
+  padding:16px 20px; font-size:.9rem}
+.cbody .lesson b{color:var(--ink)}
+.callcases{text-align:center; margin-top:32px}
+
+/* why switch */
+.why{padding:66px 0 74px; background:#fff}
+.w-grid.four{grid-template-columns:repeat(4,1fr)}
+.w-grid.four .w:nth-child(3n){border-right:1px solid var(--line)}
+.w-grid.four .w:nth-child(4n){border-right:0}
+.w-grid.four .w{border-bottom:0}
+@media(max-width:1100px){
+  .w-grid.four{grid-template-columns:repeat(2,1fr)}
+  .w-grid.four .w:nth-child(3n){border-right:0}
+  .w-grid.four .w:nth-child(2n){border-right:0}
+  .w-grid.four .w:nth-child(-n+2){border-bottom:1px solid var(--line)}
+}
+.w-grid{display:grid; grid-template-columns:repeat(3,1fr); margin-top:36px;
+  border:1px solid var(--line); border-radius:14px; overflow:hidden;
+  background:linear-gradient(115deg,#EDF3FC 0%,#EFF5FB 55%,#EAF5E2 100%)}
+@media(max-width:900px){.w-grid{grid-template-columns:1fr}}
+.w{padding:26px 24px 28px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+  display:flex; flex-direction:column}
+.w:nth-child(3n){border-right:0}
+.w:nth-child(n+4){border-bottom:0}
+@media(max-width:900px){.w{border-right:0} .w:last-child{border-bottom:0}}
+.w b{display:block; color:var(--ink); font-size:1rem; letter-spacing:-.02em; margin:10px 0 6px; line-height:1.3}
+.w span{font-size:.89rem; line-height:1.5}
+.w em{font-style:normal; font-size:1.1rem; opacity:.55}
+
+/* process */
+.proc{background:var(--grey); padding:62px 0 68px}
+.shield{width:52px; height:58px; margin:26px auto 0;
+  background:linear-gradient(180deg,#5E93D8,#2E6FD8); border-radius:10px 10px 26px 26px;
+  display:grid; place-items:center; color:#fff; font-size:1.1rem; box-shadow:var(--sh)}
+.shield-lab{text-align:center; font-size:.74rem; color:#5A6773; margin:8px 0 0}
+.steps{display:grid; grid-template-columns:repeat(5,1fr); gap:0; margin-top:24px;
+  border:1px dashed #C2CBD4; border-radius:12px; overflow:hidden; background:rgba(255,255,255,.5)}
+@media(max-width:1040px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.steps{grid-template-columns:1fr}}
+.step{padding:22px 20px 24px; border-right:1px dashed #C2CBD4; text-align:left}
+.step:last-child{border-right:0}
+@media(max-width:1040px){
+  .step{border-right:1px dashed #C2CBD4; border-bottom:1px dashed #C2CBD4}
+  .step:nth-child(2n){border-right:0}
+  .step:last-child{border-bottom:0; border-right:0}
+}
+@media(max-width:600px){.step{border-right:0} .step:nth-last-child(2){border-bottom:1px dashed #C2CBD4}}
+.step .no{font-size:.86rem; font-weight:800; color:#9FBBDF; letter-spacing:.02em; margin:0 0 10px}
+.step b{display:block; color:var(--ink); font-size:.96rem; letter-spacing:-.025em; line-height:1.28; margin-bottom:5px}
+.step .pl{display:block; color:#2F5F9E; font-size:.83rem; font-weight:600; line-height:1.35; margin-bottom:9px}
+.step span.dsc{font-size:.85rem; display:block; line-height:1.5}
+
+/* trust */
+.trust{background:linear-gradient(180deg,var(--trust-a),var(--trust-b)); padding:60px 0 68px; text-align:center}
+.trust h2 em{font-style:normal; color:#3E7A2E}
+.tgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:34px; text-align:left}
+@media(max-width:900px){.tgrid{grid-template-columns:1fr}}
+.t{background:rgba(255,255,255,.82); border-radius:12px; padding:20px 20px}
+.t b{display:block; color:var(--ink); font-size:.97rem; margin-bottom:5px; letter-spacing:-.02em}
+.t span{font-size:.89rem}
+
+/* cta + footer */
+.cta{padding:70px 0; text-align:center; background:#fff}
+.cta h2{max-width:24ch; margin:0 auto 12px}
+.cta p{max-width:56ch; margin:0 auto 24px}
+.cta-acts{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+/* footer */
+footer{background:#0F1720; color:#93A0AC; padding:52px 0 34px; font-size:.88rem}
+.fgrid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr 1.1fr; gap:32px}
+@media(max-width:1000px){.fgrid{grid-template-columns:repeat(2,1fr); gap:28px}}
+@media(max-width:560px){.fgrid{grid-template-columns:1fr}}
+.fgrid h4{color:#fff; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase;
+  margin:0 0 14px; font-weight:700}
+.fgrid ul{list-style:none; margin:0; padding:0}
+.fgrid li{margin-bottom:9px}
+.fgrid a{color:#B4C1CC; text-decoration:none}
+.fgrid a:hover{color:#fff; text-decoration:underline}
+.fbrand{display:flex; align-items:center; gap:9px; color:#fff; font-weight:700;
+  letter-spacing:-.03em; font-size:1.02rem; margin-bottom:12px}
+.fbrand svg{display:block}
+.fabout{font-size:.86rem; color:#8A97A3; margin:0 0 16px; max-width:34ch}
+.fentity{font-size:.79rem; color:#77848F; line-height:1.7; margin:0}
+.fentity .ph{color:#9DC0EE; border-bottom-color:rgba(157,192,238,.5)}
+.cookiebtn{background:none; border:1px solid #2C3A47; color:#B4C1CC; border-radius:999px;
+  padding:7px 14px; font:inherit; font-size:.82rem; cursor:pointer; margin-top:4px}
+.cookiebtn:hover{border-color:#4B5B69; color:#fff}
+.fbot{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center;
+  border-top:1px solid #1E2A35; margin-top:36px; padding-top:22px; font-size:.82rem; color:#77848F}
+.fbot nav{display:flex; flex-wrap:wrap; gap:10px 18px; margin-left:auto; font-size:.82rem; font-weight:400}
+.fbot nav a{color:#9AA7B2; text-decoration:none; opacity:1}
+.fbot nav a:hover{color:#fff; text-decoration:underline}
+@media(prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap"><div class="bar">
+    <a class="logo" href=""><svg width="24" height="24" viewBox="0 0 26 26" fill="none" aria-hidden="true"><path d="M13 2c6 0 11 4.6 11 10.4 0 4.4-3.3 7.6-7.6 7.6-3.3 0-5.9-2.3-5.9-5.4 0-2.5 1.8-4.3 4.2-4.3 1.9 0 3.3 1.3 3.3 3 0 1.4-1 2.4-2.3 2.4" stroke="#2E6FD8" stroke-width="1.9" stroke-linecap="round"/><path d="M13 24C7 24 2 19.4 2 13.6 2 9.2 5.3 6 9.6 6" stroke="#7FC241" stroke-width="1.9" stroke-linecap="round"/></svg> Defence Lab</a>
+    <nav>
+      <span class="navitem">
+        <button class="navbtn" type="button" aria-expanded="false">what we protect. <i>&#9662;</i></button>
+        <div class="mega">
+          <div class="megagrid"><a class="cat" href="protect/people/"><h5>People</h5><p>The inbox, and the person reading it.</p><span>4 services</span></a><a class="cat" href="protect/code-and-delivery/"><h5>Code &amp; delivery</h5><p>What your engineers ship.</p><span>3 services</span></a><a class="cat" href="protect/infrastructure-and-cloud/"><h5>Infrastructure &amp; cloud</h5><p>The systems the business runs on.</p><span>4 services</span></a><a class="cat" href="protect/devices/"><h5>Devices</h5><p>Laptops nobody manages.</p><span>2 services</span></a><a class="cat" href="protect/offices/"><h5>Offices</h5><p>The front door, and the room behind it.</p><span>2 services</span></a><a class="cat" href="protect/governance-and-compliance/"><h5>Governance &amp; compliance</h5><p>What you have to be able to prove.</p><span>3 services</span></a></div>
+          <div class="megafoot">
+            <a href="services/">All services &rarr;</a>
+            <a href="products/">Platforms &rarr;</a>
+            <a href="contact/">Not sure where you fit? &rarr;</a>
+          </div>
+        </div>
+      </span>
+      <a href="vendors/">vendors.</a>
+      <a href="#">blog.<span class="soon">soon</span></a>
+      <a href="about/">about us.</a>
+    </nav>
+    <a class="btn solid bare" href="contact/">book a consultation</a>
+  </div></div>
+</header>
+<main>
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <p class="badge"><b>◈</b> Welcome to Defence Lab</p>
+    <h1>Clear security. Real protection<span class="dot">.</span></h1>
+    <p class="lede">Some organizations are mapping their risk for the first time. Others already know what&#39;s broken. Either way, we start where you are — not from a script — and tell you what we find in language you can act on.</p>
+    <p class="heroline">One working conversation. No pitch, no deck.</p>
+    <div class="hero-acts">
+      <a class="btn solid" href="contact/">book a consultation <i>›</i></a>
+      <a class="btn" href="services/">view services <i>›</i></a>
+    </div>
+
+    <div class="stagearea">
+      <div class="mark" aria-hidden="true"></div>
+      <span class="chip c1"><b>✓</b> executive-ready reporting</span>
+      <span class="chip c2"><b>✓</b> senior engineers only</span>
+      <span class="chip c3"><b>✓</b> 24/7 monitored coverage</span>
+      <span class="chip c4"><b>✓</b> no rip-and-replace</span>
+      <span class="chip c5"><b>✓</b> ISO / NIST-aligned delivery</span>
+      <span class="chip c6"><b>✓</b> SLA-backed response times</span>
+    </div>
+  </div>
+</section>
+
+<!-- TRUSTED -->
+<section class="trusted">
+  <div class="wrap">
+    <h2>trusted by teams <em>building and scaling globally</em><span class="dot">.</span></h2>
+    <ul class="verts"><li>FinTech</li><li>SaaS</li><li>Healthcare</li><li>Legal</li></ul>
+    <div class="geo"><span>United States</span><span>Canada</span><span>Europe</span></div>
+  </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="who" id="about">
+  <div class="wrap">
+    <p class="eyebrow">Who we are &amp; why it matters</p>
+    <h2>a security team that builds its own tools<span class="dot">.</span></h2>
+    <p class="wlead">We work with growing product companies across the United States, Canada and Europe, running security as an ongoing service rather than a series of projects. Where the tools we needed for that didn&#39;t exist, we built them.</p>
+
+    <div class="wgrid">
+      <article class="wcard">
+        <h3>We build what we use</h3>
+        <p>Several of the tools we run on engagements were built in-house, because nothing on the market did the job the way the work needed. It means we aren&#39;t limited to what a vendor happens to sell, and the tools change when the work does.</p>
+      </article>
+      <article class="wcard">
+        <h3>We test the ways in that get skipped</h3>
+        <p>Most testing points at the network and the applications. We also go through the front door of your offices, the inbox of your staff and the personal laptops nobody manages.</p>
+      </article>
+      <article class="wcard">
+        <h3>Your data stays where you put it</h3>
+        <p>The platforms we deploy run on your own infrastructure, so employee behaviour data and forensic evidence don&#39;t leave your perimeter.</p>
+      </article>
+      <article class="wcard">
+        <h3>AI proposes, a person signs off</h3>
+        <p>We use AI where it saves real time, triaging findings and spotting anomalies, but a proposed result is never accepted automatically. In forensic work that is a requirement rather than a precaution.</p>
+      </article>
+    </div>
+
+    <div class="wstd">
+      <em>We work to published methodology:</em>
+      <span>NIST CSF 2.0</span><span>PTES</span><span>NIST SP 800-115</span>
+      <span>OWASP WSTG</span><span>OWASP Wireless</span><span>MITRE ATT&amp;CK</span>
+    </div>
+  </div>
+</section>
+
+<!-- THREE MOMENTS -->
+<section class="moments" id="moments">
+  <div class="wrap">
+    <p class="eyebrow">Where teams usually find us</p>
+    <h2>three moments when security becomes a <em>business decision.</em></h2>
+    <p class="sub">Different triggers — one goal: reduce risk without slowing the business</p>
+
+    <div class="m-grid">
+      <article class="mcard">
+        <p class="n">/ 01</p>
+        <p class="lab">Scaling product</p>
+        <p class="h">You're shipping faster than anyone can check</p>
+        <p class="d">New code, new cloud services and new pipelines every week. Nothing has broken, but nobody can say with confidence what is exposed, and slowing your engineers down isn&#39;t an option.</p>
+        <p class="out"><b>What changes</b>Checks that keep pace with your releases instead of queueing in front of them.</p>
+        <div class="mfoot"><a href="protect/code-and-delivery/#secure-sdlc-and-product-security">secure sdlc &amp; product security</a><span class="arw">→</span></div>
+      </article>
+
+      <article class="mcard">
+        <p class="n">/ 02</p>
+        <p class="lab">Known gaps</p>
+        <p class="h">Someone left in March, and you're not certain their access is gone</p>
+        <p class="d">There&#39;s a report from last year with findings nobody closed, tools running that nobody has time to read, and a network that grew as the company grew without anyone ever designing it.</p>
+        <p class="out"><b>What changes</b>Offboarding becomes a single action, and the open findings get an owner and a date.</p>
+        <div class="mfoot"><a href="protect/governance-and-compliance/#security-posture-assessment">security posture assessment</a><span class="arw">→</span></div>
+      </article>
+
+      <article class="mcard urgent">
+        <p class="n">/ 03</p>
+        <p class="lab">Incident pressure</p>
+        <p class="h">Something has happened and you need control of it now</p>
+        <p class="d">Files encrypted, an account signing in that shouldn&#39;t be, or a laptop gone with access to production. The first job is an accurate picture of what is happening, from someone who has put one together before.</p>
+        <p class="out"><b>What changes</b>You get a clear account of what happened and what to do next, with the evidence preserved.</p>
+        <div class="mfoot"><a href="contact/">talk to someone now</a><span class="arw">→</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CORE SERVICES -->
+<section class="core" id="core">
+  <div class="wrap">
+    <p class="eyebrow">Core services</p>
+    <h2>what we actually do<span class="dot">.</span></h2>
+    <p class="sub">Six ways to work with us. Two are a one-off look at where you stand, one is a programme that keeps it moving, three run continuously.</p>
+
+    <div class="s-grid">
+      <article class="scard">
+        <div class="top"><span class="n">/ 01</span><span class="stage once">one-off</span></div>
+        <p class="name">security posture assessment</p>
+        <p class="plain">Find out where you actually stand</p>
+        <p class="d">We look at what you have and tell you which gaps matter and which don&#39;t, then give you a short list in the order things should be fixed.</p>
+        <ul class="tags">
+          <li>what&#39;s exposed now</li>
+          <li>what audits ask for</li>
+          <li>what to fix first</li>
+        </ul>
+        <div class="sfoot"><a href="protect/governance-and-compliance/#security-posture-assessment">view details</a><span class="arw">→</span></div>
+      </article>
+
+      <article class="scard">
+        <div class="top"><span class="n">/ 02</span><span class="stage prog">programme</span></div>
+        <p class="name">devshield — managed security program</p>
+        <p class="plain">Security with an owner every month</p>
+        <p class="d">Instead of a project that ends, you get a monthly plan, someone whose job it is to close what is on it, and a report you can pass upward.</p>
+        <ul class="tags">
+          <li>a monthly plan</li>
+          <li>fixes that get closed</li>
+          <li>reporting for your board</li>
+        </ul>
+        <div class="sfoot"><a href="services/#engagements">see how it works</a><span class="arw">→</span></div>
+      </article>
+
+      <article class="scard">
+        <div class="top"><span class="n">/ 03</span><span class="stage">ongoing</span></div>
+        <p class="name">mdr / mxdr — 24/7 detection &amp; response</p>
+        <p class="plain">Someone is watching, and wakes up when it matters</p>
+        <p class="d">Most companies already collect the evidence of a break-in without anyone reading it, so we watch it instead and act when something is wrong.</p>
+        <ul class="tags">
+          <li>24/7 coverage</li>
+          <li>threat detection &amp; containment</li>
+          <li>sla-backed response</li>
+        </ul>
+        <div class="sfoot"><a href="protect/infrastructure-and-cloud/#mdr-mxdr">explore mdr</a><span class="arw">→</span></div>
+      </article>
+
+      <article class="scard">
+        <div class="top"><span class="n">/ 04</span><span class="stage">ongoing</span></div>
+        <p class="name">vciso (fractional)</p>
+        <p class="plain">A security lead without hiring one</p>
+        <p class="d">You get the person who decides what matters first, answers the questions customers and investors ask, and keeps the written record, for a few days a month rather than a salary.</p>
+        <ul class="tags">
+          <li>priorities and decisions</li>
+          <li>answers for customers</li>
+          <li>the written record</li>
+        </ul>
+        <div class="sfoot"><a href="protect/governance-and-compliance/#vciso">view scope</a><span class="arw">→</span></div>
+      </article>
+
+      <article class="scard">
+        <div class="top"><span class="n">/ 05</span><span class="stage once">one-off</span></div>
+        <p class="name">penetration testing</p>
+        <p class="plain">We try to break in, on purpose</p>
+        <p class="d">Real attempts against your apps, cloud and network in the way someone hostile would, followed by a list of what actually worked, worst first.</p>
+        <ul class="tags">
+          <li>apps, cloud and network</li>
+          <li>findings engineers can use</li>
+          <li>re-test after fixes</li>
+        </ul>
+        <div class="sfoot"><a href="protect/infrastructure-and-cloud/#penetration-testing">view options</a><span class="arw">→</span></div>
+      </article>
+
+      <article class="scard">
+        <div class="top"><span class="n">/ 06</span><span class="stage">ongoing</span></div>
+        <p class="name">human risk management</p>
+        <p class="plain">The part where somebody clicks the link</p>
+        <p class="d">Most break-ins start with a person rather than a server, so we find who is vulnerable, train them, and show whether the risk is going down.</p>
+        <ul class="tags">
+          <li>real phishing tests</li>
+          <li>training that follows</li>
+          <li>risk you can measure</li>
+        </ul>
+        <div class="sfoot"><a href="protect/people/#human-risk-management">see program</a><span class="arw">→</span></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="prods" id="prods">
+  <div class="khead">
+    <p class="eyebrow">Products</p>
+    <h2>Products built around real security questions<span class="dot">.</span></h2>
+  </div>
+  <div class="wrap">
+    <div class="p-grid">
+      <article class="pcard">
+        <h3>PhishAttack</h3>
+        <p>Phishing that actually gets past MFA — real session capture, not a lookalike page. It answers what awareness courses can&#39;t: could someone walk in with a stolen login today?</p>
+        <a href="products/#phishattack">explore →</a>
+      </article>
+      <article class="pcard">
+        <h3>Sec Awareness</h3>
+        <p>Training that follows a real mistake instead of the calendar. Whoever falls for a phishing test gets the lesson that addresses it, and you can see if behaviour changes.</p>
+        <a href="products/#sec-awareness">explore →</a>
+      </article>
+      <article class="pcard">
+        <h3>Phish Guard</h3>
+        <p>Reads incoming mail in context, scores the real risk, and acts on the dangerous ones — without holding up the mail everyone needs to do their job.</p>
+        <a href="phishguard/">explore →</a>
+      </article>
+      <article class="pcard">
+        <h3>Managed Security Gate</h3>
+        <p>Connects your scanners, sorts what is actually urgent, and enforces the rules inside CI/CD without becoming the reason releases are late.</p>
+        <a href="products/#managed-security-gate">explore →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases" id="case-studies">
+  <div class="wrap">
+    <p class="eyebrow">Case studies</p>
+    <h2>six things we built, and what they changed<span class="dot">.</span></h2>
+    <p class="sub">Real engagements, with clients anonymised. Each one starts with the situation rather than the technology; open one to see what we did about it.</p>
+
+    <div class="c-grid">
+      <details class="ccard">
+        <summary>
+          <p class="tag">Outgrown setup</p>
+          <h3>A whole company on a shop-bought router</h3>
+          <p class="was">Everything worked well enough — email arrived, files opened, Wi-Fi connected. The company had grown from a handful of people into a full operation, and the network had grown with it one device at a time, around a router bought from an electronics shop.</p>
+          <span class="num">one flat network, one device, no record</span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+        </summary>
+        <div class="cbody">
+          <div class="part"><h4>What that meant</h4><p>Everything sat on one flat network, so the printer, the cameras, the laptops, personal phones and the systems holding company data could all reach each other. Nothing inspected what was leaving the building and nothing recorded who had connected or when, and updates happened whenever somebody remembered.</p></div>
+          <div class="part"><h4>What we built</h4><p>We replaced the platform rather than adding security on top of it, in stages, so the business kept working throughout. The office was separated into distinct networks, a redundant pair of firewalls replaced the single device, and every event was sent to central logging. Every user network was then left with no direct route to the internet at all — traffic runs through encrypted tunnels to exit infrastructure we operate in three countries, where controls are applied centrally.</p></div>
+          <div class="part"><h4>What changed</h4><p>When the company opened a second office it joined the same infrastructure rather than being designed from scratch, so the first project became the template for the ones after it.</p></div>
+          <p class="lesson"><b>What this means for you.</b> If your network was never designed, the useful first step is finding out what you actually have rather than buying a firewall.</p>
+        </div>
+      </details>
+
+      <details class="ccard">
+        <summary>
+          <p class="tag">Outgrown setup</p>
+          <h3>Segmentation nobody notices</h3>
+          <p class="was">A large site with cameras, door controllers, printers, meeting-room screens, corporate laptops and a constant flow of visitors. Everyone agreed these shouldn&#39;t share one network.</p>
+          <span class="num">12 networks · still in place</span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+        </summary>
+        <div class="cbody">
+          <div class="part"><h4>What that meant</h4><p>Segmentation is one of the most commonly abandoned security projects, because separating things properly tends to break what people use every day: printers disappear from the list, screen sharing in the meeting room stops working, and within a fortnight the whole thing is quietly reversed.</p></div>
+          <div class="part"><h4>What we built</h4><p>Twelve distinct networks, with traffic between them denied unless there was a reason for it — then the daily things made to work across those boundaries deliberately and narrowly. Printing worked but scanning didn&#39;t: scanning doesn&#39;t use the printing ports, and this printer model didn&#39;t use the standard scanning ports either. We identified the two non-standard ports it actually needed and opened exactly those two.</p></div>
+          <div class="part"><h4>What changed</h4><p>Staff print, scan and share their screen exactly as before, and the segmentation is still in place months later — largely because it never became the reason somebody couldn&#39;t do their job.</p></div>
+          <p class="lesson"><b>What this means for you.</b> If a previous attempt at separation was rolled back, that usually says less about the idea than about how much of the work is keeping things usable afterwards.</p>
+        </div>
+      </details>
+
+      <details class="ccard">
+        <summary>
+          <p class="tag">Known gaps</p>
+          <h3>Wi-Fi that knows who you are</h3>
+          <p class="was">One shared corporate Wi-Fi password — known by every current employee, every former employee, every contractor who had ever visited, and the personal phones of all of them. Changing it meant disrupting the whole company, so it never was.</p>
+          <span class="num">offboarding: one action</span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+        </summary>
+        <div class="cbody">
+          <div class="part"><h4>What that meant</h4><p>Access couldn&#39;t be removed when someone left, and there was no way to answer who had been on the network on a given day, because the network could only record that a device had connected rather than which person was using it.</p></div>
+          <div class="part"><h4>What we built</h4><p>Wi-Fi authentication moved to the identity system the company already had, so joining the wireless network uses the same account as email. The same system authenticates remote access, with a second factor available. We also gave their IT lead and security lead their own read-only administrative accounts, so they can inspect any configuration, policy or log at any time without being able to change anything.</p></div>
+          <div class="part"><h4>What changed</h4><p>Offboarding became a single action, and every connection is now attributable to a named account rather than a shared secret, which is what an auditor asks for and what an investigation depends on. The client also no longer depends on us to see their own environment.</p></div>
+          <p class="lesson"><b>What this means for you.</b> If someone left last month, can you prove their access is gone? If the answer involves changing a password everybody uses, that&#39;s the gap.</p>
+        </div>
+      </details>
+
+      <details class="ccard">
+        <summary>
+          <p class="tag">Compliance</p>
+          <h3>Guest Wi-Fi that survives an audit</h3>
+          <p class="was">A busy site with constant visitor traffic, and guest Wi-Fi that was either open enough to be a risk or awkward enough that reception ended up reading the password aloud across the lobby.</p>
+          <span class="num">consent recorded · 30-day retention</span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+        </summary>
+        <div class="cbody">
+          <div class="part"><h4>What that meant</h4><p>The more serious exposure was legal rather than technical. Under European data protection rules, offering guest Wi-Fi means processing personal data, and there was no recorded consent, no stated purpose, no retention position and no record of who had connected.</p></div>
+          <div class="part"><h4>What we built</h4><p>A guest network where the compliance position comes first. Visitors see clear terms in both English and Spanish and must actively agree, then register with an email address. The notice states what is collected, why, that it is kept for 30 days and that it is not shared. Access lasts seven days per device, and returning guests inside that week aren&#39;t asked again. Certificates renew themselves so the portal never warns visitors the connection is untrusted.</p></div>
+          <div class="part"><h4>What changed</h4><p>The client can answer every question a data protection review asks: consent is explicit and recorded, the purpose is stated, retention is defined and each session is attributable. It also costs the front desk nothing, since nobody has to read a password aloud any more.</p></div>
+          <p class="lesson"><b>What this means for you.</b> Guest Wi-Fi is usually the cheapest compliance gap to close and one of the most commonly ignored, which often makes it the fastest visible result in a wider programme.</p>
+        </div>
+      </details>
+
+      <details class="ccard">
+        <summary>
+          <p class="tag">Resilience</p>
+          <h3>The quiet month when nothing happened</h3>
+          <p class="was">A smaller satellite office with no technical staff on site — the kind of location where a problem is discovered by people being unable to work, and getting someone there takes half a day.</p>
+          <span class="num">0 users disconnected</span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+        </summary>
+        <div class="cbody">
+          <div class="part"><h4>What that meant</h4><p>A known software fault in the firewall was leaking memory, roughly 30 to 40 megabytes a day. After about 25 days memory use crossed 88 percent and the device entered a protective mode: it stops accepting new connections and passes traffic without inspection. The office becomes unreliable and less protected at the same time, with no obvious outward sign.</p></div>
+          <div class="part"><h4>What we built</h4><p>A properly configured redundant pair, with the second firewall fully synchronised rather than merely present. It was sitting at 43 percent, healthy, with an identical configuration, and it carried the office on 1,310 active connections and 380 Mbps while we worked — in daylight, instead of at three in the morning. Then we removed the problem permanently rather than waiting for the manufacturer&#39;s fix, with automatic responses built into the device itself.</p></div>
+          <div class="part"><h4>What changed</h4><p>Not one user was disconnected: remote sessions stayed up, Wi-Fi kept working and nobody raised a ticket, and the only visible effect was 20 to 30 seconds in which the administrative interface was unavailable. A fault that would have cost this site a morning every month stopped being a recurring one.</p></div>
+          <p class="lesson"><b>What this means for you.</b> Equipment usually degrades rather than failing outright, so protecting against it needs a second device that is genuinely ready, monitoring that notices a trend rather than an outage, and a willingness to automate around a known fault.</p>
+        </div>
+      </details>
+
+      <details class="ccard">
+        <summary>
+          <p class="tag">Expansion</p>
+          <h3>One console, every site</h3>
+          <p class="was">A single large site that had grown into 24 switches and around two dozen access points across several buildings, with a group plan to open further offices internationally.</p>
+          <span class="num">24 switches · one console</span>
+          <span class="more"><span class="arw"><span class="i-open">→</span><span class="i-shut">×</span></span><span class="lbl-open">what we did</span><span class="lbl-shut">close</span></span>
+        </summary>
+        <div class="cbody">
+          <div class="part"><h4>What that meant</h4><p>Every change meant touching equipment individually, and every new location meant designing it again, sending an experienced engineer, and ending up with a site that differed slightly from the others in ways nobody documented. The cost of that inconsistency is easy to miss: because no two sites are quite the same, each problem has to be worked out from scratch.</p></div>
+          <div class="part"><h4>What we built</h4><p>One management platform, hosted centrally, running the entire estate — all twenty-four switches, the access points, five wireless networks and twelve network segments from one place. Configuration is held as templates, with the site-specific details kept separately as variables. We also documented the environment as plain-language documents a new IT hire or a different provider could actually use.</p></div>
+          <div class="part"><h4>What changed</h4><p>Changes are made centrally and consistently, without travelling to a site. For the group&#39;s expansion the method is prepared: equipment is registered centrally before it ships, then finds its own configuration when powered on — a location operational within minutes, with no engineer on site.</p></div>
+          <p class="lesson"><b>What this means for you.</b> If you plan to open more locations, the decisions that shape the cost are made at the first site rather than the third, because a site built from a template costs a fraction of one designed from scratch.</p>
+        </div>
+      </details>
+
+    </div>
+
+    <div class="callcases"><a class="btn" href="about/">how we work <i>›</i></a></div>
+  </div>
+</section>
+
+<!-- WHY SWITCH -->
+<section class="why">
+  <div class="wrap">
+    <p class="eyebrow">What working with us actually gives you</p>
+    <h2>the difference is in how the work gets done<span class="dot">.</span></h2>
+    <div class="w-grid four">
+      <div class="w"><em>◉</em><b>The same people, start to finish</b><span>The engineers who scope your engagement are the ones who deliver it. Your CISO keeps a direct line to the technical lead, so the people making the recommendations are the people carrying them out — no handoff, no re-explaining your environment to a new team.</span></div>
+      <div class="w"><em>◈</em><b>We build the tooling the work needs</b><span>Where off-the-shelf tools stop short, we write our own — internal automation, testing harnesses, and purpose-built platforms. The assessment adapts to your architecture instead of forcing your architecture through a generic scanner.</span></div>
+      <div class="w"><em>⌘</em><b>Access you can audit</b><span>Every credential and permission is scoped to the work, logged while it&#39;s in use, and revoked when the engagement ends. You get a written record of exactly what was touched, and when. Nothing lingers.</span></div>
+      <div class="w"><em>▤</em><b>Reports built to act on</b><span>Findings ranked by real business impact, with reproduction steps precise enough for your engineers and a summary clear enough for your board. A document that drives fixes, not a 200-page PDF that sits in a drive.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="proc">
+  <div class="wrap">
+    <p class="eyebrow">Process</p>
+    <h2>security built around how your business actually works<span class="dot">.</span></h2>
+    <div class="shield" aria-hidden="true">◈</div>
+    <p class="shield-lab">one team across all five stages</p>
+    <div class="steps">
+      <div class="step">
+        <p class="no">01</p>
+        <b>define scope &amp; goals</b>
+        <span class="pl">What matters, and who decides</span>
+        <span class="dsc">We agree what the business actually needs protected, what is off limits, and how we will know it worked. Ownership gets written down here rather than assumed.</span>
+      </div>
+      <div class="step">
+        <p class="no">02</p>
+        <b>assess &amp; prioritise risk</b>
+        <span class="pl">Where you stand today</span>
+        <span class="dsc">A baseline of what you have and what is exposed, then a short list ordered by what an attacker would reach first — not everything at once.</span>
+      </div>
+      <div class="step">
+        <p class="no">03</p>
+        <b>implement &amp; enable controls</b>
+        <span class="pl">Fixing it without breaking the work</span>
+        <span class="dsc">Controls go in in stages, alongside what is already running, because what matters is not whether it is secure on day one but whether it is still there a year later.</span>
+      </div>
+      <div class="step">
+        <p class="no">04</p>
+        <b>monitor &amp; respond</b>
+        <span class="pl">Someone watching, and someone answering</span>
+        <span class="dsc">These are two different jobs: monitoring runs continuously, and when something is wrong a person acts on it with enough context to decide, rather than leaving a queue to triage later.</span>
+      </div>
+      <div class="step">
+        <p class="no">05</p>
+        <b>report &amp; improve</b>
+        <span class="pl">Proof it is working, and what changed</span>
+        <span class="dsc">Progress you can put in front of a board or an auditor — and the fixes go back into hardening, so the same fault doesn&#39;t return on a schedule.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="wrap">
+    <p class="eyebrow">Trust &amp; governance</p>
+    <h2>every action is traceable, every access is time-bound, and <em>nothing happens behind closed doors</em><span class="dot">.</span></h2>
+    <p class="sub">Access is limited to what&#39;s needed — and ends when the work is done.</p>
+    <div class="tgrid">
+      <div class="t"><b>You can see everything we see</b><span>Your own IT and security leads get read-only accounts, so you never have to ask us what is configured.</span></div>
+      <div class="t"><b>Written so someone else could take over</b><span>Documentation written plainly enough that a new hire or a different provider could actually use it.</span></div>
+      <div class="t"><b>Your data stays where you put it</b><span>Our platforms run on your own infrastructure, so employee and evidence data doesn't leave your perimeter unless you allow it.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <h2>Not sure which part you need?</h2>
+    <p>Tell us what's happening and we'll say which of it is urgent, which can wait, and what it would take. If the answer is "you're fine for now", we'll say that too.</p>
+    <div class="cta-acts">
+      <a class="btn solid" href="contact/">book a consultation <i>›</i></a>
+      <a class="btn danger" href="mailto:contact@defencelab.io?subject=Incident">we have an incident now <i>›</i></a>
+    </div>
+  </div>
+</section>
+
+
+</main>
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div>
+      <div class="fbrand"><svg width="24" height="24" viewBox="0 0 26 26" fill="none" aria-hidden="true"><path d="M13 2c6 0 11 4.6 11 10.4 0 4.4-3.3 7.6-7.6 7.6-3.3 0-5.9-2.3-5.9-5.4 0-2.5 1.8-4.3 4.2-4.3 1.9 0 3.3 1.3 3.3 3 0 1.4-1 2.4-2.3 2.4" stroke="#2E6FD8" stroke-width="1.9" stroke-linecap="round"/><path d="M13 24C7 24 2 19.4 2 13.6 2 9.2 5.3 6 9.6 6" stroke="#7FC241" stroke-width="1.9" stroke-linecap="round"/></svg> Defence Lab</div>
+      <p class="fabout">Cybersecurity for growing product companies. Security run as an ongoing service across the United States, Canada and Europe.</p>
+    </div>
+    <div><h4>Services</h4><ul>
+      <li><a href="protect/governance-and-compliance/#security-posture-assessment">Security posture assessment</a></li>
+      <li><a href="security-health-check/">Security health check</a></li>
+      <li><a href="services/#engagements">DevShield</a></li>
+      <li><a href="protect/infrastructure-and-cloud/#mdr-mxdr">MDR / MXDR</a></li>
+      <li><a href="protect/governance-and-compliance/#vciso">vCISO</a></li>
+      <li><a href="protect/infrastructure-and-cloud/#penetration-testing">Penetration testing</a></li>
+      <li><a href="protect/people/#human-risk-management">Human risk management</a></li>
+    </ul></div>
+    <div><h4>Products</h4><ul>
+      <li><a href="products/#phishattack">PhishAttack</a></li>
+      <li><a href="products/#sec-awareness">Sec Awareness</a></li>
+      <li><a href="phishguard/">Phish Guard</a></li>
+      <li><a href="products/#managed-security-gate">Managed Security Gate</a></li>
+    </ul></div>
+    <div><h4>Company</h4><ul>
+      <li><a href="about/">About us</a></li>
+      <li><a href="#case-studies">Case studies</a></li>
+      <li><a href="iso-27001/">Compliance</a></li>
+      <li><a href="fortinet/">Fortinet</a></li>
+      <li><a href="vendors/">Vendors</a></li>
+      <li><a href="contact/">Contact</a></li>
+    </ul></div>
+    <div><h4>Legal &amp; trust</h4><ul>
+      <li><span class="soonf">Privacy policy (coming soon)</span></li>
+      <li><span class="soonf">Cookie policy (coming soon)</span></li>
+    </ul></div>
+  </div>
+  <div class="fbot"><span>&copy; 2026 Defence Lab</span><span>contact@defencelab.io</span>
+  <span style="margin-left:auto">Prototype mirroring stage. Not for publication.</span></div>
+</div></footer>
+<script>
+document.querySelectorAll(".navitem").forEach(function(item){
+  var b=item.querySelector(".navbtn");
+  b.addEventListener("click",function(e){e.stopPropagation();
+    var o=item.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false");});
+});
+document.addEventListener("click",function(){
+  document.querySelectorAll(".navitem.open").forEach(function(i){
+    i.classList.remove("open");i.querySelector(".navbtn").setAttribute("aria-expanded","false");});
+});
+</script>
+</body>
+</html>
